@@ -37,13 +37,13 @@
               (click)="toggleProfileNotification()"
             >
               <a href="javascript:" *ngIf="store.getState().Auth.login.fetched">
-                <img
+                <!-- <img
                   *ngIf="store.getState().Auth.login.profile.hasProfileImage()"
                   [src]="store.getState().Auth.login.profile.getProfileImage() ? store.getState().Auth.login.profile.getProfileImage() : 'assets/images/user-card/img-round2.jpg'"
                   class="img-radius"
                   alt="User-Profile-Image"
-                />
-                <span *ngIf="store.getState().Auth.login.loggedin">{{ store.getState().Auth.login.profile.getEmail() }}</span> <i class="icon-angle-down"></i>
+                /> -->
+                <!-- <span *ngIf="store.getState().Auth.login.loggedin">{{ store.getState().Auth.login.profile.getEmail() }}</span> <i class="icon-angle-down"></i> -->
               </a>
               <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification">
                 <li>
@@ -181,17 +181,17 @@
           <div class="pcoded-inner-navbar main-menu" appAccordion>
             <div class="" *ngIf="store.getState().Auth.login.fetched">
               <div class="main-menu-header ripple light">
-                <div *ngIf="store.getState().Auth.login.profile.hasProfileImage()">
+                <!-- <div *ngIf="store.getState().Auth.login.profile.hasProfileImage()">
                   <img
                     class="img-80 img-radius"
                     [src]="store.getState().Auth.login.profile.getProfileImage() ? store.getState().Auth.login.profile.getProfileImage() : 'assets/images/user-card/img-round2.jpg'"
                     alt="User-Profile-Image"
                   />
-                </div>
+                </div> -->
                 <div class="user-details">
-                  <span id="more-details" (click)="toggleOpenedSidebar()">
+                  <!-- <span id="more-details" (click)="toggleOpenedSidebar()">
                     <span *ngIf="store.getState().Auth.login.loggedin">{{ store.getState().Auth.login.profile.getEmail() }} </span> <i class="fa fa-caret-down"></i>
-                  </span>
+                  </span> -->
                 </div>
               </div>
               <div class="main-menu-content">
