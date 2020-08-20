@@ -61,7 +61,7 @@ export const fetchLoginDetail = function*() {
   } else {
     try {
       return yield AppInjector.get(ApiService)
-        .admin.user.profile()
+        .auth.profile()
         .toPromise();
     } catch (e) {
       yield put({ type: API_CALL_ERROR, error: e });
