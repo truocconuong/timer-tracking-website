@@ -1,0 +1,38 @@
+<div class="role-create-component">
+  <div class="row mgb-20">
+    <div class="col s12">
+      <ul class="breadcrumb-title">
+        <li class="breadcrumb-item">
+          <a routerLink="/">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/acl/roles">Role</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a>Create</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <div class="form-group">
+          <label for="">Name
+            <span class="required">*</span>
+          </label>
+          <input type="text" [ngClass]="{'parsley-error':name.invalid && form.submitted}" class="form-control input-sm" name="name" #name="ngModel" [(ngModel)]="role.name" required>
+          <ul *ngIf="name.invalid && form.submitted" class="parsley-errors-list filled">
+            <li class="parsley-required">This field is required.</li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Create Role</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

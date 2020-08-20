@@ -1,0 +1,61 @@
+%display-flex {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin align-item($align) {
+    -webkit-align-items: $align;
+    -ms-flex-align: $align;
+    align-items: $align;
+}
+
+#nf-notify {
+    height: 0px;
+    color: #FFF;
+    overflow: hidden;
+    @extend %display-flex;
+    @include align-item(center);
+    position: fixed;
+    z-index: 9999;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    .notify-container {
+        text-align: center;
+        width: 100%;
+        .fa {
+            vertical-align: middle;
+            font-size: 18px;
+            margin-top: -2px;
+            margin-right: 3px;
+        }
+        .right-align {
+            float: right;
+            cursor: pointer;
+        }
+        .notify-message {
+            font-size: 14px;
+        }
+        .fa-close {
+            float: right;
+            cursor: pointer;
+        }
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+}
+
+#nf-notify.notify-success {
+    background: #00e676;
+}
+
+#nf-notify.notify-warning {
+    background: #fa9325;
+}
+
+#nf-notify.notify-barcode-scanner {
+  background: #2c3e50;
+}

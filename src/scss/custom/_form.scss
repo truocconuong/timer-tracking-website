@@ -1,0 +1,78 @@
+.ng-select {
+  padding: 0px;
+  border: none;
+}
+
+.search-form,
+.multi-purpose-search {
+  @include m('inline') {
+    display: inline;
+    @include e('submit') {
+      padding-left: 7px;
+      float: right;
+    }
+    @include e('search') {
+      overflow: hidden;
+    }
+    @include e('input-field') {
+      line-height: 30px;
+      height: 43px;
+    }
+  }
+  .input-group {
+    width: auto;
+    button {
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      &:focus {
+        outline: none;
+        border-right: 1px solid #cccccc;
+        box-shadow: none;
+      }
+    }
+    .form-control {
+      &:focus {
+        outline: none;
+        border-right: 1px solid #cccccc;
+        box-shadow: none;
+      }
+    }
+  }
+  @include e('btn-submit') {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+.multi-purpose-search {
+  .dropdown-menu {
+    > li {
+      > a {
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+
+.form-inline {
+  .filter-group {
+    display: inline-block;
+    padding: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.dropdown-menu--custom {
+  margin-top: 0;
+}
+
+per-page {
+  select {
+    &.form-control {
+      width: auto;
+      display: inline-block;
+    }
+  }
+}

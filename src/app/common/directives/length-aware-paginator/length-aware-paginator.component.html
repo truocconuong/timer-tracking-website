@@ -1,0 +1,27 @@
+<div class="row" *ngIf="paginator !== undefined && (alwaysDisplay === true || this.paginator.getTotalPages() > 1)">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <ul class="pagination animated fadeIn">
+      <li class="page-item" *ngIf="shouldActivePrev()">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(getCurrentPage(), 'prev')">Prev</a>
+      </li>
+      <li class="page-item" [ngClass]="{'active': isCurrentPage(1)}">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(1)">1</a>
+      </li>
+      <li class="page-item left-show-more" *ngIf="!isHideLeftShowMore(getCurrentPage())">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(pagesInBetween[0] - numberPageInBetween )">...</a>
+      </li>
+      <li class="page-item" [ngClass]="{'active': isCurrentPage(page)}" *ngFor="let page of pagesInBetween">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(page)">{{ page }}</a>
+      </li>
+      <li class="page-item right-show-more" *ngIf="!isHideRightShowMore(getCurrentPage())">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(pagesInBetween[pagesInBetween.length - 1] + 1)">...</a>
+      </li>
+      <li class="page-item" [ngClass]="{'active': isCurrentPage(pages.length)}" *ngIf="pages.length > 1">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(pages.length)">{{ pages.length }}</a>
+      </li>
+      <li class="page-item" *ngIf="shouldActiveNext()">
+        <a class="page-link" [routerLink]="getCurrentUrl()" [queryParams]="this.resolveParams(getCurrentPage(), 'next')">Next</a>
+      </li>
+    </ul>
+  </div>
+</div>

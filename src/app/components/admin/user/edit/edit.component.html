@@ -1,0 +1,37 @@
+<div *ngIf="payload.fetched">
+  <div class="row mgb-20">
+    <div class="col s12">
+      <ul class="breadcrumb-title">
+        <li class="breadcrumb-item">
+          <a routerLink="/"> <i class="fa fa-home"></i> </a>
+        </li>
+        <li class="breadcrumb-item"><a [routerLink]="listUserRouter()"> Users </a></li>
+        <li class="breadcrumb-item" *ngIf="payload.fetched">
+          <a href="javascript:">{{ payload.item.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header no-box-shadow">
+          <h5 class="card-header-text">{{ payload.item.getFullName() }}</h5>
+        </div>
+        <div class="card-body">
+          <div class="edit-info">
+            <div class="col-12 "><reactive-form [(inputs)]="payload.inputs" [onSubmit]="onSubmit" submitText="Save"></reactive-form></div>
+          </div>
+          <div class="delete-user">
+            <div class="col">
+              <!-- <swal #deleteUser title="Delete" text="Do you want to delete this user?" type="warning" [showCancelButton]="true" (confirm)="removeUser(payload.item)"></swal> -->
+              <!-- <button class="btn btn-sm btn-danger" [swal]="deleteUser"><i class="fa fa-trash"></i>Delete</button> -->
+              <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

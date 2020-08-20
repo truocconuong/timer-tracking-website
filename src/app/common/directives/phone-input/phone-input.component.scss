@@ -1,0 +1,27 @@
+.phone-box {
+    position: relative;
+    clear: both;
+    border: 1px solid #ccc;
+    height: 31px;
+
+    .phone-code {
+        appearance: none;
+        border: 0;
+        background-color: #333333;
+        color: #fff;
+        border-radius: 0;
+        float: left;
+        padding: 5px;
+        margin-right: 10px;
+        width: 120px;
+    }
+
+    .phone-number-box {
+        line-height: 27px;
+        .phone-value {
+            border: 0;
+            background-color: transparent;
+            width: 125px;
+        }
+    }
+}

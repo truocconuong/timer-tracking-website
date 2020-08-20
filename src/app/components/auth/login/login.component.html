@@ -1,0 +1,88 @@
+<!-- <div class="login">
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <section class="login_content">
+        <form name="login_form" (ngSubmit)="onSubmit()">
+          <h1>StyleTribute Admin</h1>
+          <div>
+            <input type="text" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Username" required />
+          </div>
+          <div>
+            <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Password" required />
+          </div>
+          <div>
+            <input type="submit" name="submit" class="btn btn-primary" value="Login">
+            <a class="reset_pass" routerLink="/forgot-password">Lost your password?</a>
+          </div>
+          <div class="clearfix"></div>
+          <div class="separator">
+            <p class="change_link">New to site?
+              <a routerLink="/create-user" class="to_register"> Create Account </a>
+            </p>
+            <div class="clearfix"></div>
+            <div>
+              <h1>
+                <i class="fa fa-paw"></i> StyleTribute Admin</h1>
+              <p>©2017 All Rights Reserved</p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+ -->
+<section class="login-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="md-float-material form-material" name="login_form" (ngSubmit)="onSubmit()">
+          <div class="text-center">
+            <img src="assets/images/vclogo.png" alt="logo.png">
+          </div>
+          <div class="auth-box card">
+            <div class="card-block">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h3 class="text-center">Sign In</h3>
+                </div>
+              </div>
+              <div class="form-group form-primary">
+                <input type="text" [(ngModel)]="user.username" name="username" class="form-control" required />
+                <span class="form-bar"></span>
+                <label class="float-label">Username</label>
+              </div>
+              <div class="form-group form-primary">
+                <input type="password" [(ngModel)]="user.password" name="password" class="form-control" required />
+                <span class="form-bar"></span>
+                <label class="float-label">Password</label>
+              </div>
+              <div class="row m-t-25 text-left">
+                <div class="col-12">
+                  <!-- <div class="checkbox-fade fade-in-primary d-">
+                    <label>
+                      <input type="checkbox" value="">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check txt-primary"></i>
+                      </span>
+                      <span class="text-inverse">Remember me</span>
+                    </label>
+                  </div> -->
+                  <div class="forgot-phone text-right f-right">
+                    <a [routerLink]="['/auth/forgot-password']" class="text-right f-w-600"> Forgot Password?</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-t-30">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple">Sign in</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

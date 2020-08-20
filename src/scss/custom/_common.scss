@@ -1,0 +1,14 @@
+.card {
+  .card-header {
+    &.no-box-shadow {
+      box-shadow: none;
+    }
+  }
+}
+.mgt-20 {
+  margin-top: 20px;
+}
+
+.mgb-20 {
+  margin-bottom: 20px;
+}

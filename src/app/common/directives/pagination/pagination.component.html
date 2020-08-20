@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-5 col-sm-7">
+    <div class="description">
+      <span class="page-counts">{{ getMin() }} - {{ getMax() }} of {{ count }}</span>
+      <span class="page-totals">{{ totalPages() }} pages</span>
+    </div>
+  </div>
+  <div class="col-md-7 col-sm-7">
+    <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 0">
+
+      <ul class="pagination">
+        <li class="paginate_button previous" [ngClass]="{ 'disabled': page === 1 || loading }">
+          <button class="link" (click)="onPrev()" [disabled]="page === 1 || loading">
+            Previous
+          </button>
+        </li>
+        <li class="paginate_button" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)" [ngClass]="{'active': pageNum === page, 'disabled': loading}">
+          <a href="javascript:;">{{ pageNum }}</a>
+        </li>
+        <li class="paginate_button next" [ngClass]="{ 'disabled': lastPage() || loading }">
+          <button class="link" (click)="onNext(true)" [disabled]="lastPage() || loading">
+            Next
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

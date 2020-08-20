@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="">Country</label>
+  <select class="form-control input-sm" name="country" #country="ngModel" [(ngModel)]="modelName" [ngClass]="{'parsley-error':country.invalid && (country.dirty || country.touched) && form.submitted}"
+    required>
+    <option value="">-- select --</option>
+    <option *ngFor="let item of COUNTRIES" [ngValue]="item.alpha2Code">{{ item.name }}</option>
+  </select>
+  <ul *ngIf="country.invalid && (country.dirty || country.touched) && form.submitted" class="parsley-errors-list filled">
+    <li class="parsley-required">This field is required.</li>
+  </ul>
+</div>

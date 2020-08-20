@@ -1,0 +1,24 @@
+:host {
+  .custom-selection {
+    button {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      &.btn {
+        padding: 5px;
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+        &.btn-disabled {
+          background: #eee;
+          color: #000;
+        }
+      }
+    }
+    .dropdown-menu {
+      .dropdown-item {
+        cursor: pointer;
+      }
+    }
+  }
+}

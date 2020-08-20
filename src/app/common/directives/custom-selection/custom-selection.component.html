@@ -1,0 +1,17 @@
+<ng-container *ngIf="!disabled; else disabledInput">
+  <div class="dropdown custom-selection">
+    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ selected === undefined ? '' : selected.label }}
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" *ngFor="let option of options" (click)="change(option)">{{ option.label }}</a>
+    </div>
+  </div>
+</ng-container>
+<ng-template #disabledInput>
+  <div class="dropdown custom-selection disabled">
+    <button class="btn btn-default btn-disabled btn-sm dropdown-toggle" type="button">
+      {{ selected === undefined ? '' : selected.label }}
+    </button>
+  </div>
+</ng-template>

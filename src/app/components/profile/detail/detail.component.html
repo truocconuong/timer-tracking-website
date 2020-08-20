@@ -1,0 +1,73 @@
+<div class="user-detail-component">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12  col-sm-6 col-md-4" *ngIf="store.getState().Auth.login.fetched">
+        <div class="simple-cards users-card">
+          <div class="card user-card">
+            <div class="card-header-img">
+              <img *ngIf="!store.getState().Auth.login.profile.hasProfileImage()" id="avatars" class="img-fluid img-radius" src="assets/images/user-card/img-round2.jpg"
+                alt="card-img">
+              <img *ngIf="store.getState().Auth.login.profile.hasProfileImage()" id="avatar" class="img-fluid img-radius" [src]="store.getState().Auth.login.profile.getProfileImage() ? store.getState().Auth.login.profile.images.data[0].url : 'assets/images/user-card/img-round2.jpg'"
+                alt="card-img">
+              <h4>{{ store.getState().Auth.login.profile.getName() }}</h4>
+              <h5>{{ store.getState().Auth.login.profile.email }}</h5>
+              <h6>{{ store.getState().Auth.login.profile.getRoleName() }}</h6>
+            </div>
+            <!-- <div class="row justify-content-center">
+              <div class="col-auto">
+                <div class="label-icon">
+                  <i class="fa fa-bell"></i>
+                  <label class="badge badge-primary badge-top-right">9</label>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="label-icon">
+                  <i class="icofont icofont-heart"></i>
+                  <label class="badge badge-success badge-top-right">9</label>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="label-icon">
+                  <i class="icofont icofont-bag-alt"></i>
+                  <label class="badge badge-danger badge-top-right">9</label>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="label-icon">
+                  <i class="icofont icofont-ui-message"></i>
+                  <label class="badge badge-info badge-top-right">9</label>
+                </div>
+              </div>
+            </div> -->
+            <!-- <p>Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.</p> -->
+            <div>
+              <!-- <button type="button" class="btn btn-primary m-r-15 ripple light">
+                <i class="icofont icofont-plus m-r-5"></i>Follow</button>
+              <button type="button" class="btn btn-success ripple light">
+                <i class="icofont icofont-user m-r-5"></i>Profile</button> -->
+              <button uploadImage [(inProgress)]="uploading" subProgress="process" subError="error" accept="png|jpg|jpeg" allowMaxSize="2"
+                (onComplete)="completeUpload($event)" (onError)="errorUploadAvatar($event)" type="button" class="btn btn-success ripple light">
+                <i class="icofont icofont-user m-r-5"></i>Upload</button>
+              <button (click)="updateAvatar()" type="button" class="btn btn-primary m-r-15 ripple light">
+                <i class="icofont icofont-plus m-r-5"></i>Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12  col-sm-6 col-md-8">
+        <div class="card info-box">
+          <div class="card-header no-box-shadow">
+            <h5 class="card-header-text">About</h5>
+          </div>
+          <div class="card-body">
+            <div class="edit-info">
+              <div class="col-12 " *ngIf="store.getState().Profile.Detail.inputs | hasItem">
+                <reactive-form [(inputs)]="store.getState().Profile.Detail.inputs" [onSubmit]="onSubmit" submitText="Save"></reactive-form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

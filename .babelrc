@@ -1,0 +1,4 @@
+{
+  "presets": ["es2015"],
+  "ignore": ["/webapp/bower_components","/webapp/js/website/templates.js","/webapp/js/app/templates.js","/webapp/js/admin/templates.js"]
+}

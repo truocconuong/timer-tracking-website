@@ -1,0 +1,39 @@
+<div class="role-edit-component" *ngIf="store.getState().Acl.Roles.edit.fetched">
+  <div class="row mgb-20">
+    <div class="col s12">
+      <ul class="breadcrumb-title">
+        <li class="breadcrumb-item">
+          <a routerLink="/">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/acl/roles">Role</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a>{{ store.getState().Acl.Roles.edit.item.getName() }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <h4>Permission</h4>
+      <div class="groups">
+        <div class="group__item" *ngFor="let group of store.getState().Acl.Roles.edit.groups | orderBy:['id','asc']">
+          <input id="gp_{{ group.getId() }}" type="checkbox" [(ngModel)]="group.checked" (click)="selectAllPermissionGroup(group)">
+          <label for="gp_{{ group.getId() }}">{{ group.getName() }}</label>
+          <ul class="permission-list">
+            <li class="permission__item" *ngFor="let permission of group.getPermissions()">
+              <input id="pm_{{ permission.getId() }}" type="checkbox" [checked]="group.checked" [(ngModel)]="permission.checked">
+              <label for="pm_{{ permission.getId() }}">{{ permission.getName() }}</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <button class="btn btn-primary btn-sm" (click)="savePermission()">Save</button>
+    </div>
+  </div>
+</div>

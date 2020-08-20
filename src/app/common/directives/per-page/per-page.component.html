@@ -1,0 +1,4 @@
+<label for="">Show</label>
+<select class="form-control input-sm" name="perPage" [(ngModel)]="perPage" (change)="updateLimit()">
+  <option [ngValue]="i" *ngFor="let i of limits">{{ i }}</option>
+</select>

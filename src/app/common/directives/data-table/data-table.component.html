@@ -1,0 +1,43 @@
+<table class="table table-striped table-bordered dataTable no-footer">
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox">
+      </th>
+      <th>SKU</th>
+      <th>Destination</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="5" class="text-center">No inventory found</td>
+    </tr>
+    <tr *ngFor="let item of data">
+      <td>
+        <input type="checkbox" [checked]="selectAll" [(ngModel)]="item.checked">
+      </td>
+      <td>{{ item.sku }}</td>
+      <td>
+        <select class="form-control ui-input small" name="destination" [(ngModel)]="item.destination" (change)="updateDestination(item)">
+          <option *ngFor="let d of destinations" [ngValue]="d">{{ d.code }}</option>
+        </select>
+      </td>
+      <td>
+        <select class="form-control ui-input small" name="location" [(ngModel)]="item.location" [disabled]="!(item.locations)">
+          <option *ngFor="let l of item.locations" [ngValue]="l">{{ l.name }}</option>
+        </select>
+      </td>
+      <td>
+        <!-- <a class="btn btn-primary btn-sm" routerLink="/inventory/detail/{{ item.sku }}">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </a> -->
+        <button class="btn btn-dark btn-sm" (click)="updateInventory(item)">
+          <i *ngIf="!item.loading" class="fa fa-check" aria-hidden="true"></i>
+          <i *ngIf="item.loading" class="fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

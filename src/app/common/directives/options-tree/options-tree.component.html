@@ -1,0 +1,8 @@
+<!--USAGE: <optgroup *ngFor="let category of store.getState().Category.list.items | ConvertToTree" [trees]="category.children" label="{{category.name}}" OptionsTreeComponent></optgroup>-->
+<!--<optgroup *ngFor="let child of trees | filterBy:'children.length':0:'moreThan'"-->
+          <!--[trees]="child.children" label="{{child.name}}" OptionsTreeComponent>-->
+<!--</optgroup>-->
+<ng-template *ngFor="let child of trees | filterBy:'children.length':0:'moreThan'">
+  <option *ngFor="let child of trees" value="{{child.id}}" >{{child.name}}</option>
+</ng-template>
+<option *ngFor="let child of trees | filterBy:'children.length':0" value="{{child.id}}" >{{child.name}}</option>

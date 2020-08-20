@@ -1,0 +1,20 @@
+<form class="search-form multi-purpose-search" (ngSubmit)="onSubmit()">
+  <div class="form-group search-form--inline__submit">
+    <input type="submit" value="{{submitText}}" class="btn btn-success search-form--inline__btn-submit btn-no-margin">
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input type="search" name="keyword" placeholder="{{getPlaceHolder()}}" class="form-control" [(ngModel)]="keyword">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle btn-no-margin" data-toggle="dropdown" aria-expanded="false">{{ getCurrentAction().getLabel() }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right dropdown-menu--custom" role="menu">
+          <li *ngFor="let action of actions">
+            <a (click)="setAction(action)">{{action.getLabel()}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</form>

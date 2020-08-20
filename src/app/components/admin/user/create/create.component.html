@@ -1,0 +1,26 @@
+<div class="create-new-user">
+  <div class="row mgb-20">
+    <div class="col s12">
+      <ul class="breadcrumb-title">
+        <li class="breadcrumb-item">
+          <a routerLink="/"> <i class="fa fa-home"></i> </a>
+        </li>
+        <li class="breadcrumb-item"><a [routerLink]="listUserRouter()"> Users </a></li>
+        <li class="breadcrumb-item"><a href="javascript:">Create</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header no-box-shadow"><h5 class="card-header-text">Create new driver</h5></div>
+        <div class="card-body">
+          <div class="edit-info">
+            <div class="col-12 "><reactive-form [(inputs)]="payload.inputs" [onSubmit]="onSubmit" submitText="Create"></reactive-form></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

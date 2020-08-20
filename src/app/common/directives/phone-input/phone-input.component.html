@@ -1,0 +1,11 @@
+<div class="phone-box">
+  <select #country (change)="selectCountry(country.value)" class="phone-code" [(ngModel)]="phoneData.code">
+    <option value="{{ country.callingCodes[0] }}" *ngFor="let country of COUNTRIES">
+      <span>{{ country.name }}</span>
+    </option>
+  </select>
+  <div class="phone-number-box">
+    <span class="plus-code" *ngIf="phoneData.code">(+{{ phoneData.code }}) </span>
+    <input type="text" #phone (change)="enterPhone(phone.value)" class="phone-value" [(ngModel)]="phoneData.value">
+  </div>
+</div>

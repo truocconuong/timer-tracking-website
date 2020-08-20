@@ -1,0 +1,9 @@
+#avatar {
+  height: 230px;
+  width: 230px;
+}
+.info-box:hover {
+  -moz-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  -webkit-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+}
