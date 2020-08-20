@@ -1,3 +1,103 @@
-<p>
-  dashboard works!
-</p>
+<div class="time-sheet-list-component mb-4">
+  <div class="ui-component">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Hôm nay</li>
+      </ol>
+    </nav>
+    <div class="wrapper">
+      <div class="row mb-5 d-flex justify-content-center">
+        <div class="col-12 col-md-6 text-center">
+          <div>
+            <h2>Hà Nội</h2>
+            <p>
+              Hôm nay <strong>{{ today | date: 'dd/MM/y' }}</strong>
+            </p>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+              <div class="timesheet d-flex flex-column text-center">
+                <p class="timesheet__couter">{{ formated_diff_time }}</p>
+                <ng-container *ngIf="!processing; else processingBtn">
+                  <ng-container *ngIf="!started; else stopBtn">
+                    <button status="primary" (click)="start()">Bắt đầu</button>
+                  </ng-container>
+                  <ng-template #stopBtn>
+                    <button status="danger" (click)="stop()">Dừng</button>
+                  </ng-template>
+                </ng-container>
+                <ng-template #processingBtn>
+                  <button status="info"></button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="items table-responsive">
+            <table class="table table-bordered ui-table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Bắt đầu</th>
+                  <th>Kết thúc</th>
+                  <th>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let session of sessions; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ session.checkin | date: 'longTime' }}</td>
+                  <td>
+                    <ng-container *ngIf="!started || i > 0 || session.checkout_status; else checkedOut">
+                      {{ session.checkout | date: 'longTime' }}
+                    </ng-container>
+                    <ng-template #checkedOut>
+                      ...
+                    </ng-template>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="!started || i > 0 || session.checkout_status; else checkedOut">
+                      {{ formatedSessionDiffTime(session) }}
+                    </ng-container>
+                    <ng-template #checkedOut>
+                      ...
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr class="total">
+                  <td colspan="3">Tổng:</td>
+                  <td>{{ total(sessions) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row d-flex justify-content-between  ">
+        <div class="col-12 col-sm-3 col-md-3 col-lg-6 view ">
+          <div class=" d-flex align-items-center mb-2 mb-md-0">
+            <p class="m-0 pr-3">View</p>
+            <select name="" id="" class="select-items">
+              <option value="">10</option>
+              <option value="">20</option>
+              <option value="">50</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-sm-9 col-md-9 col-lg-6 pagination-custom ">
+          <div class="d-flex align-items-center justify-content-end">
+            <p class="m-0 pr-3">Page</p>
+            <input type="number" value="1" class="number-pages mr-3" />
+            <p class="m-0 pr-3">of 56</p>
+            <a href="" class="pre mr-2"> <i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+            <a href="" class="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

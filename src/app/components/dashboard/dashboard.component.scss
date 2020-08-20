@@ -1,0 +1,43 @@
+.ui-component .wrapper table tbody tr td {
+    padding: 0.875rem 1.25rem;
+  }
+  .ui-component .wrapper table thead tr th:last-child {
+    text-align: left;
+  }
+  
+  .title {
+    p {
+      padding: 0.75rem 1rem;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .total {
+    td {
+      font-weight: bold;
+    }
+  }
+  
+  .timesheet {
+    &__couter {
+      margin: 0;
+      font-size: 60px;
+      font-weight: bold;
+      line-height: normal;
+    }
+    &__btn-end {
+      background: red;
+      width: 78px;
+      color: white;
+      margin: auto;
+      border: none;
+      font-size: 18px;
+      border-radius: 4px;
+      padding: 10px;
+      font-weight: bold;
+      &:hover {
+        background: #b40b0b;
+      }
+    }
+  }
+  
