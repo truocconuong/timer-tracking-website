@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { profileRouter } from '../profile.const';
 
 function* watchProfileDetailFormRendered() {
-  yield takeLatest(RENDER_PROFILE_DETAIL_FORM, function*(action) {
+  yield takeLatest(RENDER_PROFILE_DETAIL_FORM, function* (action) {
     yield put({ type: FETCH_PROFILE_DETAIL_REQUESTED });
   });
 }
