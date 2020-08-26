@@ -18,7 +18,9 @@
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6 d-flex justify-content-center">
               <div class="timesheet d-flex flex-column text-center">
-                <p class="timesheet__couter">{{ formated_diff_time }}</p>
+                <p class="timesheet__couter">
+                  <label id="minutes">00</label>:<label id="seconds">00</label>
+                  </p>
                 <ng-container *ngIf="!processing; else processingBtn">
                   <ng-container *ngIf="!started; else stopBtn">
                     <button status="primary" (click)="start()">Bắt đầu</button>

@@ -1,5 +1,6 @@
 export const API_CALL_ERROR = "API_CALL_ERROR";
 export const FETCH_USER = "FETCH_USER";
+export const CHECK_IN = 'CHECK_IN';
 export const fetchUser = payload => ({
   type: FETCH_USER,
   payload

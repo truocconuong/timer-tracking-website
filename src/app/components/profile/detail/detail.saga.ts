@@ -25,7 +25,7 @@ function* watchProfileDetailFormRendered() {
 function* fetchProfileDetail(action) {
   const api = AppInjector.get(ApiService);
   try {
-    let result = yield api.admin.user.profile().toPromise();
+    let result = yield api.auth.profile().toPromise();
     yield put({ type: FETCH_PROFILE_DETAIL_SUCCESSED, data: result });
   } catch (e) {
     yield put({ type: API_CALL_ERROR, error: e });

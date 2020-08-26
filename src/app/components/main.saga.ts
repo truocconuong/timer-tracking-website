@@ -1,7 +1,11 @@
-import { put, fork, takeLatest, select } from 'redux-saga/effects';
+import { put, fork, takeLatest, select, takeEvery } from 'redux-saga/effects';
 import * as _ from 'lodash';
 import { FETCH_LOGIN_DETAIL_SUCCEEDED } from './auth/login/login.actions';
 import { AppMenunItems } from '../app-menu-items';
+import { CHECK_IN } from '../store/action';
+import adminSaga from './admin/admin.saga';
+import { AppInjector } from '../app-injector';
+import { ApiService } from '../api/api.service';
 
 function* initAppMenu(action) {
   const MenuItems = AppMenunItems;
@@ -19,10 +23,10 @@ function* watchFetchLoginDetailSuccessed() {
 function* swapAppMenu(action) {
   yield put({
     type: 'INIT_APP_MENU',
-    data: yield select(state => (state as any).RootReducer.MenuItems),
-    user: yield select(state => (state as any).Auth.login.profile),
+    data: yield select((state) => (state as any).RootReducer.MenuItems),
+    user: yield select((state) => (state as any).Auth.login.profile),
     levelMenu: action.levelMenu,
-    isShowBtnSettings: yield select(state => !(state as any).RootReducer.isShowBtnSettings)
+    isShowBtnSettings: yield select((state) => !(state as any).RootReducer.isShowBtnSettings)
   });
 }
 
@@ -30,4 +34,11 @@ function* watchSwapAppMenu() {
   yield takeLatest('SHOW_MENU_BY_LEVEL_REQUESTED', swapAppMenu);
 }
 
-export default [watchFetchLoginDetailSuccessed, watchSwapAppMenu];
+function* watchCheckinRequest() {
+  const api = AppInjector.get(ApiService);
+  yield takeEvery(CHECK_IN, function* (action: any) {
+    let result = yield api.work_times.checkin(action.data).toPromise();
+  });
+}
+
+export default [watchCheckinRequest, watchFetchLoginDetailSuccessed, watchSwapAppMenu];
