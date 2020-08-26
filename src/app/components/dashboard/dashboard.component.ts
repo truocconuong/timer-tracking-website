@@ -5,6 +5,7 @@ import { Store } from './../../store/store.module';
 import _ from 'lodash';
 import * as moment from 'moment';
 import { CHECK_IN } from './../../store/action';
+import { CHECK_OUT } from './../../store/action';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -47,7 +48,8 @@ export class DashboardComponent implements OnInit {
     function setTime() {
       ++totalSeconds;
       secondsLabel.innerHTML = pad(totalSeconds % 60);
-      minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+      const checker = totalSeconds;
+      minutesLabel.innerHTML = pad(Math.floor(totalSeconds / 60));
     }
     this.inteval = setInterval(setTime, 1000);
 
@@ -66,18 +68,24 @@ export class DashboardComponent implements OnInit {
   };
   checkIn() {
     const data = {
-      checkin: this.started_at,
+      checkin: this.started_at
     };
     this.store.dispatch({ type: CHECK_IN, data });
   }
   toggleStarted() {
     this.started = !this.started;
   }
-  stop(): void {
+  stop() {
     clearInterval(this.inteval);
     this.toggleStarted();
+    this.checkOut();
   }
-
+  checkOut() {
+    const data = {
+      checkout: moment()
+    };
+    this.store.dispatch({ type: CHECK_OUT, data });
+  }
   stringToHHMMSS = function (str: any) {
     const sec_num = parseInt(str, 10);
     let hours: any = Math.floor(sec_num / 3600);
