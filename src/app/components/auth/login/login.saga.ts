@@ -15,6 +15,7 @@ import * as Cookies from 'js-cookie';
 import { environment } from '../../../../environments/environment';
 import { NotificationService } from '../../../common/services/notification/notification.service';
 import * as _ from 'lodash';
+import { isElectron } from './../../../../app/api/auth/auth.service';
 
 function parseQuery(queryString) {
   let query = {};
@@ -41,6 +42,10 @@ function* watchLoginRequest() {
 function* watchLoginSuccessed() {
   yield takeLatest(LOGIN_SUCCEEDED, function*(action: any) {
     Cookies.set(environment.jwtTokenKey,action.data.accesstoken, { path: '/' });
+    if(isElectron()){
+      window.localStorage.setItem(environment.jwtTokenKey,action.data.accesstoken)
+      yield put({type : FETCH_LOGIN_DETAIL_REQUESTED})
+    }
     AppInjector.get(NotificationService).show('success', 'Login Success', 5000);
     const router = AppInjector.get(Router);
     const activatedRouter = AppInjector.get(ActivatedRoute);
