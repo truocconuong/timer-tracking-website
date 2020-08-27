@@ -31,7 +31,6 @@ function* watchLoginRequest() {
     try {
       const api = AppInjector.get(ApiService);
       let result = yield api.auth.login(action.data).toPromise();
-      console.log(result)
       yield put({ type: LOGIN_SUCCEEDED, data: result });
     } catch (e) {
       yield put({ type: API_CALL_ERROR, error: e });
@@ -47,9 +46,12 @@ function* watchLoginSuccessed() {
     const activatedRouter = AppInjector.get(ActivatedRoute);
     if (!_.isUndefined(activatedRouter.snapshot.queryParams.redirect)) {
       let queryParams = parseQuery(activatedRouter.snapshot.queryParams.search);
-      router.navigateByUrl(decodeURIComponent(activatedRouter.snapshot.queryParams.redirect), { queryParams });
+      router.navigateByUrl('localhost:4200/dashboard');
+
     } else {
-      router.navigate(['/']);
+      console.log('getpath12211',window.location.href)
+
+      router.navigate(['/dashboard']);
     }
   });
 }

@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   hmr: false,
-  apiUrl: 'https://api.vicoders.com',
+  apiUrl: 'http://api-vitable.local',
   jwtTokenKey: 'jwt_token_key',
 };

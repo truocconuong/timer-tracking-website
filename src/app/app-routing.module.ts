@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     path: 'auth',
     loadChildren: 'app/components/auth/auth.module#AuthModule'
   },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: DashboardComponent }
 ];
 
 @NgModule({
