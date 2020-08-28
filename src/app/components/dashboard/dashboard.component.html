@@ -18,9 +18,7 @@
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6 d-flex justify-content-center">
               <div class="timesheet d-flex flex-column text-center">
-                <p class="timesheet__couter">
-                  <label id="minutes">00</label>:<label id="seconds">00</label>
-                  </p>
+                <p class="timesheet__couter"><label id="minutes">00</label>:<label id="seconds">00</label></p>
                 <ng-container *ngIf="!processing; else processingBtn">
                   <ng-container *ngIf="!started; else stopBtn">
                     <button status="primary" (click)="start()">Bắt đầu</button>
@@ -51,31 +49,25 @@
               </thead>
               <tbody>
                 <ng-container *ngIf="store.getState().RootReducer.work_times">
-                <tr *ngFor="let session of store.getState().RootReducer.work_times ; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ session.checkin | date: 'longTime' }}</td>
-                  <td>
-                    <ng-container *ngIf="!started || i > 0 || session.checkout_status; else checkedOut">
-                      {{ session.checkout | date: 'longTime' }}
-                    </ng-container>
-                    <ng-template #checkedOut>
-                      ...
-                    </ng-template>
-                  </td>
-                  <td>
-                    <ng-container *ngIf="!started || i > 0 || session.checkout_status; else checkedOut">
-                      {{ formatedSessionDiffTime(session) }}
-                    </ng-container>
-                    <ng-template #checkedOut>
-                      ...
-                    </ng-template>
-                  </td>
-                </tr>
-                <tr class="total">
-                  <td colspan="3">Tổng:</td>
-                  <td>{{ total(store.getState().RootReducer.work_times) }}</td>
-                </tr>
-              </ng-container>
+                  <tr *ngFor="let session of store.getState().RootReducer.work_times; let i = index">
+                    <td>
+                        {{ i + 1 }}
+                    </td>
+                    <td>
+                        {{ session.checkin | date: 'longTime' }}
+                    </td>
+                    <td>
+                        {{ session.checkout | date: 'longTime' }}
+                    </td>
+                    <td>
+                        {{ formatedSessionDiffTime(session) }}
+                    </td>
+                  </tr>
+                  <tr class="total">
+                    <td colspan="3">Tổng:</td>
+                    <td>{{ total(store.getState().RootReducer.work_times) }}</td>
+                  </tr>
+                </ng-container>
               </tbody>
             </table>
           </div>

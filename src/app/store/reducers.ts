@@ -37,13 +37,14 @@ const RootReducer = (state = { config: environment, isShowBtnSettings: false }, 
       });
       return _.assign({}, state, { MenuItems: MenuItems, isShowBtnSettings: action.isShowBtnSettings });
     case GET_ALL_WORKTIME_USER_SUCCESSED:
-      const work_times =[];
+      let work_times =[];
       const user_id = action.user_id;
       const filterDataUser = _.filter(action.data,e => e.user.id ===user_id);
       if(!_.isEmpty(filterDataUser)){
         const current = moment().format('DD/MM/YYYY');
         _.map(filterDataUser,e => _.assign(e,{checkin : moment(e.checkin),checkout : moment(e.checkout),date : moment(e.checkin).format('DD/MM/YYYY')}))
         _.filter(filterDataUser,data=>data.date === current ? work_times.push(data):false)
+        work_times = _.orderBy(work_times,['id'],['desc'])
       }
       return _.assign({}, state, { work_times: work_times });
     default:
