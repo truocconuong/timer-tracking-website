@@ -4,8 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from './../../store/store.module';
 import _ from 'lodash';
 import * as moment from 'moment';
-import { CHECK_IN } from './../../store/action';
-import { CHECK_OUT } from './../../store/action';
+import { CHECK_IN,CHECK_OUT,GET_ALL_WORKTIME_USER_REQUESTED } from './../../store/action';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,7 +26,8 @@ export class DashboardComponent implements OnInit {
     this.store = store.getInstance();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
   diffSessionInSec(session) {
     return Math.floor(((new Date(session.checkout) as any) - (new Date(session.checkin) as any)) / 1000);
   }
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
     const data = {
       checkout: moment()
     };
-    this.store.dispatch({ type: CHECK_OUT, data });
+    this.store.dispatch({ type: CHECK_OUT, data,user_id : this.store.getState().Auth.login.profile.id });
   }
   stringToHHMMSS = function (str: any) {
     const sec_num = parseInt(str, 10);

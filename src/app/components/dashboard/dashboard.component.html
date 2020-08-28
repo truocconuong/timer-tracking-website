@@ -50,7 +50,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let session of sessions; let i = index">
+                <ng-container *ngIf="store.getState().RootReducer.work_times">
+                <tr *ngFor="let session of store.getState().RootReducer.work_times ; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ session.checkin | date: 'longTime' }}</td>
                   <td>
@@ -72,8 +73,9 @@
                 </tr>
                 <tr class="total">
                   <td colspan="3">Tổng:</td>
-                  <td>{{ total(sessions) }}</td>
+                  <td>{{ total(store.getState().RootReducer.work_times) }}</td>
                 </tr>
+              </ng-container>
               </tbody>
             </table>
           </div>

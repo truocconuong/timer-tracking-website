@@ -29,5 +29,14 @@ export class WorkTimeService {
       }),
     );
   }
+
+
+  getAllWorkTimes(): Observable<any> {
+    return this.http.get(this.apiUrl.getApiUrl(this.url)).pipe(
+      tap(result => {
+        return result
+      })
+    );
+  }
   
 }

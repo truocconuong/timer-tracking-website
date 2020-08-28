@@ -12,9 +12,10 @@ import { ApiModule } from './api/api.module';
 import { setAppInjector } from './app-injector';
 import { AppErrorHandler } from './common/exceptions/exception-handeler';
 import { Store } from './store/store.module';
+import { PipesModule } from './common/pipes/pipes.module';
 
 @NgModule({
-  imports: [BrowserModule, ApiModule, AppCommonModule, AppRoutingModule, ComponentsModule],
+  imports: [BrowserModule, ApiModule, AppCommonModule, AppRoutingModule, ComponentsModule,PipesModule],
   declarations: [AppComponent],
   providers: [
     {
