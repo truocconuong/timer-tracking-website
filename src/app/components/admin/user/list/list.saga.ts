@@ -19,24 +19,10 @@ function* watchFetchAllUserRequested() {
     try {
       AppInjector.get(PreloaderService).show();
       const results = yield AppInjector.get(ApiService)
-        .admin.user.get(_.assign(action.data, { includes: 'roles' }))
+        .admin.user.getAllUser()
         .toPromise();
-
-      if (!_.isUndefined(action.com)) {
-        switch (action.com) {
-          case USER_COMP:
-            yield put({
-              type: FETCH_ALL_USER_SUCCEEDED,
-              data: results,
-              com: USER_COMP
-            });
-            break;
-          default:
-            break;
-        }
-      } else {
-      }
       AppInjector.get(PreloaderService).hide();
+      yield put({ type: FETCH_ALL_USER_SUCCEEDED, users: results});
     } catch (e) {
       AppInjector.get(PreloaderService).hide();
       yield put({ type: API_CALL_ERROR, error: e });

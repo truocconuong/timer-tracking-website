@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
-import { FETCH_ALL_USER_SUCCEEDED } from './list.actions';
+import { FETCH_ALL_WORK_TIMES_SUCCESSED } from './work_times.actions';
 
-export const list = (
+export const work_times = (
   state = {
     fetched: false,
     loading: false,
@@ -12,7 +12,7 @@ export const list = (
   action
 ) => {
   switch (action.type) {
-    case FETCH_ALL_USER_SUCCEEDED:
+    case FETCH_ALL_WORK_TIMES_SUCCESSED:
       return _.assign({}, state, {
         fetched: true,
         users: action.users,

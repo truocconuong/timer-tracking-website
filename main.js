@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow,desktopCapturer} = require('electron');
 let win;
 function createWindow() {
   // Create the browser window.
@@ -32,3 +32,4 @@ app.on('activate', () => {
     createWindow();
   }
 });
+

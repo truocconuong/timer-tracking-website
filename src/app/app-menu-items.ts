@@ -38,20 +38,28 @@ export const AppMenunItems = [
         name: 'User',
         type: 'link',
         icon: 'fa fa-users'
+      },
+      {
+        states: ['/', 'admin', 'users','work-times'],
+        short_label: 'U',
+        name: 'Work times',
+        type: 'link',
+        icon: 'fa fa-users'
       }
     ]
   },
-  {
-    label: 'ACL',
-    main: [
-      {
-        main_state: 'acl',
-        states: ['/', 'acl', 'roles'],
-        short_label: 'R',
-        name: 'Role',
-        type: 'link',
-        icon: 'fa fa-book'
-      }
-    ]
-  }
+  
+  // {
+  //   label: 'ACL',
+  //   main: [
+  //     {
+  //       main_state: 'acl',
+  //       states: ['/', 'acl', 'roles'],
+  //       short_label: 'R',
+  //       name: 'Role',
+  //       type: 'link',
+  //       icon: 'fa fa-book'
+  //     }
+  //   ]
+  // }
 ];

@@ -3,6 +3,8 @@ import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { WorkTimesComponent } from './work_times/work_times.component';
+import { WorkTimesDetailComponent } from './work_times_detail/work_times_detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent
+  },
+  {
+    path: 'work-times',
+    component: WorkTimesComponent
+  },
+  {
+    path: 'work-times/:id',
+    component: WorkTimesDetailComponent
   }
 ];
 

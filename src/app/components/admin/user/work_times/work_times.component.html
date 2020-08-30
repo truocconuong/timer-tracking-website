@@ -36,23 +36,26 @@
                 <sort-by-field field="name"></sort-by-field>
               </th>
               <th>
-                First name
+                First checkin
                 <sort-by-field field="email"></sort-by-field>
               </th>
-             <th>Last name</th>
+             <th>Last checkout</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody *ngIf="(payload.users | hasItem)">
-            <tr *ngFor="let item of payload.users; let i = index">
-              <td>{{ item.id }}</td>
-              <td>{{ item.email }}</td>
-              <td>{{ item.lastName }}</td>
-              <td>{{ item.name }}</td>
-              <td>
-                <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>
-              </td>
-            </tr>
+              <tr *ngFor="let item of payload.users; let i = index">
+                <ng-container *ngIf="item.work_times | hasItem">
+                <td>{{ item.id }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ geneareteFirstCheckin(item.work_times)  | date: 'longTime'}}</td>
+                <td>{{ geneareteLastCheckout(item.work_times) | date: 'longTime' }}</td>
+                <td>
+                  <a routerLink="/admin/users/work-times/{{ item.id }}" class="btn btn-dark btn-sm icon-only"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>
+                  <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>
+                </td>
+              </ng-container>
+              </tr>
           </tbody>
         </table>
       </div>

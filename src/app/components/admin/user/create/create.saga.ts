@@ -15,7 +15,7 @@ function* watchCreateAdminUserRequest() {
     const router = AppInjector.get(Router);
     try {
       let result = yield AppInjector.get(ApiService)
-        .admin.user.create(action.data)
+        .admin.user.createUser(action.data)
         .toPromise();
       yield put({ type: CREATE_ADMIN_USER_SUCCESSED, data: result });
       router.navigate(listUserRouter());
@@ -27,12 +27,6 @@ function* watchCreateAdminUserRequest() {
 
 function* watchAdminCreateUserFormRender() {
   yield takeLatest(RENDER_CREATE_FORM_ADMIN_USER_REQUESTED, function*() {
-    const roles = yield call(fetchAllRoles);
-    yield put({
-      type: UPDATE_ADMIN_USER_INPUT_OPTION,
-      input: 'role',
-      data: _.map(roles, (item, key) => _.assign(item, { value: item.slug, label: item.name, selected: Number(key) === 0 }))
-    });
   });
 }
 export default [watchCreateAdminUserRequest, watchAdminCreateUserFormRender];

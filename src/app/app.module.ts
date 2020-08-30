@@ -13,9 +13,10 @@ import { setAppInjector } from './app-injector';
 import { AppErrorHandler } from './common/exceptions/exception-handeler';
 import { Store } from './store/store.module';
 import { PipesModule } from './common/pipes/pipes.module';
+import { NgxElectronModule } from 'ngx-electron';
 
 @NgModule({
-  imports: [BrowserModule, ApiModule, AppCommonModule, AppRoutingModule, ComponentsModule,PipesModule],
+  imports: [BrowserModule, ApiModule, AppCommonModule, AppRoutingModule, ComponentsModule, PipesModule,NgxElectronModule],
   declarations: [AppComponent],
   providers: [
     {

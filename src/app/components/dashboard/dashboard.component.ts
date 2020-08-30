@@ -4,7 +4,9 @@ import { FormControl } from '@angular/forms';
 import { Store } from './../../store/store.module';
 import _ from 'lodash';
 import * as moment from 'moment';
-import { CHECK_IN,CHECK_OUT,GET_ALL_WORKTIME_USER_REQUESTED } from './../../store/action';
+import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED } from './../../store/action';
+import { ElectronService } from 'ngx-electron';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,11 +24,34 @@ export class DashboardComponent implements OnInit {
   public sessions: any[];
   public pagination: any;
   public store;
-  constructor(store: Store) {
+  public electron ;
+  constructor(store: Store,private _electronService: ElectronService) {
     this.store = store.getInstance();
+    this.electron = _electronService
   }
 
   ngOnInit() {
+
+
+   if(this._electronService.isElectronApp){
+    this._electronService.desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
+      console.log(sources)
+      for (const source of sources) {
+        if (source.name === 'Electron') {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+              audio: false,
+              video: {
+              }
+            })
+          } catch (e) {
+          }
+          return
+        }
+      }
+    })
+   }
+    
   }
   diffSessionInSec(session) {
     return Math.floor(((new Date(session.checkout) as any) - (new Date(session.checkin) as any)) / 1000);
@@ -84,8 +109,10 @@ export class DashboardComponent implements OnInit {
     const data = {
       checkout: moment()
     };
-    this.store.dispatch({ type: CHECK_OUT, data,user_id : this.store.getState().Auth.login.profile.id });
+    this.store.dispatch({ type: CHECK_OUT, data, user_id: this.store.getState().Auth.login.profile.id });
   }
+  freeStyle = () => {
+  };
   stringToHHMMSS = function (str: any) {
     const sec_num = parseInt(str, 10);
     let hours: any = Math.floor(sec_num / 3600);
@@ -103,4 +130,6 @@ export class DashboardComponent implements OnInit {
     }
     return hours + ':' + minutes + ':' + seconds;
   };
+
+  
 }

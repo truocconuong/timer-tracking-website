@@ -21,8 +21,36 @@ export class CreateComponent extends BaseComponent implements OnInit {
     this.init();
     let inputs: InputBase<any>[] = [
       new TextBox({
-        key: 'first_name',
-        label: 'First Name *',
+        key: 'username',
+        label: 'Username *',
+        classes: ['col-6'],
+        group_classes: ['col-12'],
+        order: 1,
+        validators: [
+          {
+            label: VALIDATOR_REQUIRED,
+            validator: Validators.required,
+            message: 'This field is required'
+          }
+        ]
+      }),
+      new TextBox({
+        key: 'email',
+        label: 'Email *',
+        classes: ['col-6'],
+        group_classes: ['col-12'],
+        order: 1,
+        validators: [
+          {
+            label: VALIDATOR_REQUIRED,
+            validator: Validators.required,
+            message: 'This field is required'
+          }
+        ]
+      }),
+      new TextBox({
+        key: 'name',
+        label: 'First name',
         classes: ['col-6'],
         group_classes: ['col-12'],
         order: 1,
@@ -36,7 +64,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       }),
       new TextBox({
         key: 'last_name',
-        label: 'Last Name *',
+        label: 'Last name',
         classes: ['col-6'],
         group_classes: ['col-12'],
         order: 1,
@@ -66,7 +94,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       new TextBox({
         key: 're_password',
         type: 'password',
-        label: 'Password confirmation *',
+        label: 'Password confirm*',
         classes: ['col-6'],
         group_classes: ['col-12'],
         order: 2,
@@ -78,58 +106,6 @@ export class CreateComponent extends BaseComponent implements OnInit {
           }
         ]
       }),
-      new TextBox({
-        key: 'email',
-        label: 'Email *',
-        classes: ['col-6'],
-        group_classes: ['col-12'],
-        order: 3,
-        validators: [
-          {
-            label: VALIDATOR_REQUIRED,
-            validator: Validators.required,
-            message: 'This field is required'
-          }
-        ]
-      }),
-      new TextBox({
-        key: 'phone_number',
-        label: 'Phone Number',
-        classes: ['col-6'],
-        group_classes: ['col-12'],
-        order: 3,
-        validators: []
-      }),
-      new TextBox({
-        key: 'address',
-        label: 'Address',
-        classes: ['col-12'],
-        group_classes: ['col-12'],
-        order: 4,
-        validators: []
-      }),
-      new TextBox({
-        key: 'company_name',
-        label: 'Company',
-        classes: ['col-12'],
-        group_classes: ['col-12'],
-        order: 5,
-        validators: []
-      }),
-      new Dropdown({
-        key: 'role',
-        label: 'Role',
-        classes: ['col-12'],
-        group_classes: ['col-12'],
-        order: 6,
-        validators: [
-          {
-            label: VALIDATOR_REQUIRED,
-            validator: Validators.required,
-            message: 'This field is required'
-          }
-        ]
-      })
     ];
 
     this.dispatch({ type: RENDER_CREATE_FORM_ADMIN_USER_REQUESTED, data: { inputs: inputs } });
@@ -144,13 +120,11 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
     if (form.valid) {
       let data = {
-        first_name: form.value.first_name,
-        last_name: form.value.last_name,
+        username: form.value.username,
+        lastName: form.value.last_name,
+        name: form.value.name,
         email: form.value.email,
-        phone_number: form.value.phone_number,
         password: form.value.password,
-        address: form.value.address,
-        company: form.value.company
       };
 
       this.dispatch({ type: CREATE_ADMIN_USER_REQUESTED, data: data });

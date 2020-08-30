@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { FETCH_ALL_USER_REQUESTED, updateUserStatusRequested } from './list.actions';
 import { USER_COMP } from '../user.const';
 import * as _ from 'lodash';
 import { BaseComponent } from '../../../base.component';
 import { removeUserRequested } from '../edit/edit.actions';
+import { FETCH_ALL_WORK_TIMES_REQUESTED } from './work_times.actions';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  templateUrl: './work_times.component.html',
+  styleUrls: ['./work_times.component.scss']
 })
-export class ListComponent extends BaseComponent implements OnInit {
-  public reducer: String = 'Admin.User.list';
+export class WorkTimesComponent extends BaseComponent implements OnInit {
+  public reducer: String = 'Admin.User.work_times';
   public UserStatus = [
     {
       label: 'Pending',
@@ -36,7 +36,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.navigationSubscription = this.route.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.dispatch({
-          type: FETCH_ALL_USER_REQUESTED
+          type: FETCH_ALL_WORK_TIMES_REQUESTED
         });
       }
     });
@@ -47,16 +47,29 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   changeUserStatus(item) {
-    this.dispatch(updateUserStatusRequested({ id: item.getId(), status: item.status }));
   }
 
   removeUser(item) {
     this.dispatch(removeUserRequested({ id: item.id }));
   }
 
+  geneareteFirstCheckin(work_times){
+    const data = _.orderBy(work_times,['id'],['ASC']);
+    const getFirstData = _.first(data);
+    return getFirstData.checkin;
+
+  }
+
+ geneareteLastCheckout(work_times){
+  const data = _.orderBy(work_times,['id'],['ASC']);
+  const getLastData = _.last(data);
+  return getLastData.checkout;
+  }
+
+
   mapStateToProps(state) {
     return {
-      payload: state.Admin.User.list
+      payload: state.Admin.User.work_times
     };
   }
 

@@ -7,15 +7,41 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService extends ServiceProvider {
-  public url = '/api/admin/users';
+  public url = '/api/users/';
   public model = User;
+
+  createUser(data): Observable<any> {
+    this.preloader.show();
+    return this.http.post(this.apiUrl.getApiUrl(`${this.url}create-user`), data).pipe(
+      tap((result) => {
+        return result;
+      })
+    );
+  }
+
+  getAllUserDetail(id): Observable<any> {
+    this.preloader.show();
+    return this.http.get(this.apiUrl.getApiUrl(`${this.url}${id}`)).pipe(
+      tap((result) => {
+        return result;
+      })
+    );
+  }
+  getAllUser(): Observable<any> {
+    this.preloader.show();
+    return this.http.get(this.apiUrl.getApiUrl(this.url)).pipe(
+      tap((result) => {
+        return result;
+      })
+    );
+  }
 
   changeStatus(id, params): Observable<any> {
     return this.http.put(`${this.apiUrl.getApiUrl(this.url)}/${id}/status`, params).pipe(
-      map(result => {
+      map((result) => {
         return new User((result as any).data);
       }),
-      catchError(error => {
+      catchError((error) => {
         throw error;
       })
     );
@@ -27,8 +53,8 @@ export class UserService extends ServiceProvider {
         role_id: roleId
       })
       .pipe(
-        tap(result => {}),
-        catchError(error => {
+        tap((result) => {}),
+        catchError((error) => {
           throw error;
         })
       );
@@ -36,8 +62,8 @@ export class UserService extends ServiceProvider {
 
   detachRoleFromUser(data): Observable<any> {
     return this.http.delete(this.apiUrl.getApiUrl(this.url) + `/${data.userId}/role/${data.roleId}`).pipe(
-      tap(result => {}),
-      catchError(error => {
+      tap((result) => {}),
+      catchError((error) => {
         throw error;
       })
     );
@@ -45,8 +71,8 @@ export class UserService extends ServiceProvider {
 
   saveRoleUser(userId, roles): Observable<any> {
     return this.http.put(this.apiUrl.getApiUrl(this.url) + `/${userId}/roles`, roles).pipe(
-      tap(result => {}),
-      catchError(error => {
+      tap((result) => {}),
+      catchError((error) => {
         throw error;
       })
     );

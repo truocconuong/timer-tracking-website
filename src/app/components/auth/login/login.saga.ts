@@ -42,20 +42,13 @@ function* watchLoginRequest() {
 function* watchLoginSuccessed() {
   yield takeLatest(LOGIN_SUCCEEDED, function*(action: any) {
     Cookies.set(environment.jwtTokenKey,action.data.accesstoken, { path: '/' });
+    AppInjector.get(NotificationService).show('success', 'Login Success', 5000);
+    const router = AppInjector.get(Router);
     if(isElectron()){
       window.localStorage.setItem(environment.jwtTokenKey,action.data.accesstoken)
       yield put({type : FETCH_LOGIN_DETAIL_REQUESTED})
-    }
-    AppInjector.get(NotificationService).show('success', 'Login Success', 5000);
-    const router = AppInjector.get(Router);
-    const activatedRouter = AppInjector.get(ActivatedRoute);
-    if (!_.isUndefined(activatedRouter.snapshot.queryParams.redirect)) {
-      let queryParams = parseQuery(activatedRouter.snapshot.queryParams.search);
       router.navigateByUrl('localhost:4200/dashboard');
-
-    } else {
-      console.log('getpath12211',window.location.href)
-
+    }else {
       router.navigate(['/dashboard']);
     }
   });
