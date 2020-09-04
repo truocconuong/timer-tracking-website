@@ -1,8 +1,15 @@
-const { app, BrowserWindow,desktopCapturer} = require('electron');
+const { app, BrowserWindow, desktopCapturer } = require('electron');
 let win;
 function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      backgroundThrottling: false
+    }
+  });
   // and load the index.html of the app.
   win.loadFile(`./dist/index.html`);
   // Open the DevTools.
@@ -12,10 +19,21 @@ function createWindow() {
     win = null;
   });
 }
+// function capture(){
+//   desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
+//     for (const source of sources) {
+//       if (source.name === 'Entire Screen') {
+//         console.log(navigator)
+//       }
+//     }
+//   })
+// }
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -32,4 +50,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-

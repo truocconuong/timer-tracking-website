@@ -15,6 +15,8 @@ export const work_times_detail = (
     case FETCH_DETAIL_WORK_TIMES_SUCCESSED:
       const work_times_convert = [];
       const work_times = action.user.work_times;
+      _.map(work_times, (e) => (!_.isNil(e.urls) ? _.assign(e, { urls: JSON.parse(e.urls) }) : _.assign(e, { urls: [] })));
+      console.log(work_times)
       for (const time of work_times) {
         const checkin = moment(time.checkin).format('DD/MM/YYYY');
         const checkIsExists = _.some(work_times_convert, { date: checkin });

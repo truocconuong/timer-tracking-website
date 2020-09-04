@@ -44,12 +44,14 @@ function* watchLoginSuccessed() {
     Cookies.set(environment.jwtTokenKey,action.data.accesstoken, { path: '/' });
     AppInjector.get(NotificationService).show('success', 'Login Success', 5000);
     const router = AppInjector.get(Router);
+    console.log(isElectron())
     if(isElectron()){
+      console.log('chay zo day')
       window.localStorage.setItem(environment.jwtTokenKey,action.data.accesstoken)
       yield put({type : FETCH_LOGIN_DETAIL_REQUESTED})
       router.navigateByUrl('localhost:4200/dashboard');
     }else {
-      router.navigate(['/dashboard']);
+      router.navigate(['/admin/users']);
     }
   });
 }

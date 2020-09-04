@@ -18,7 +18,7 @@
     "e2e": "ng e2e",
     "generate": "ng generate @vicoders/generator:angular_component",
     "electron": "electron .",
-    "electron-build": "ng build --prod"
+    "electron-build": "ng build --prod && electron ."
   },
   "private": true,
   "dependencies": {

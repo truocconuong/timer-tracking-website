@@ -40,6 +40,7 @@
                 <sort-by-field field="email"></sort-by-field>
               </th>
              <th>Last checkout</th>
+             <th>Date</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -50,6 +51,7 @@
                 <td>{{ item.email }}</td>
                 <td>{{ geneareteFirstCheckin(item.work_times)  | date: 'longTime'}}</td>
                 <td>{{ geneareteLastCheckout(item.work_times) | date: 'longTime' }}</td>
+                <td>{{geneareteFirstCheckin(item.work_times) | date:  "dd/MM/yyyy"}}</td>
                 <td>
                   <a routerLink="/admin/users/work-times/{{ item.id }}" class="btn btn-dark btn-sm icon-only"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>
                   <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>

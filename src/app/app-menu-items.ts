@@ -44,7 +44,7 @@ export const AppMenunItems = [
         short_label: 'U',
         name: 'Work times',
         type: 'link',
-        icon: 'fa fa-users'
+        icon: 'fa fa-calendar'
       }
     ]
   },

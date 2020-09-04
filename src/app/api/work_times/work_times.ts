@@ -9,7 +9,7 @@ import { AppInjector } from '../../app-injector';
 
 import { Response } from '@angular/http';
 
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class WorkTimeService {
@@ -24,19 +24,22 @@ export class WorkTimeService {
 
   checkin(data): Observable<any> {
     return this.http.post(this.apiUrl.getApiUrl(this.url), data).pipe(
-      tap(result => {
-        return result
-      }),
-    );
-  }
-
-
-  getAllWorkTimes(): Observable<any> {
-    return this.http.get(this.apiUrl.getApiUrl(this.url)).pipe(
-      tap(result => {
-        return result
+      tap((result) => {
+        return result;
       })
     );
   }
-  
+
+  getAllWorkTimes(): Observable<any> {
+    return this.http.get(this.apiUrl.getApiUrl(this.url)).pipe(
+      tap((result) => {
+        return result;
+      })
+    );
+  }
+
+  upload(params?: {}) {
+    const dataUrl = 'http://localhost:9899/api/v1/upload';
+    return this.http.post(dataUrl,params)
+  }
 }

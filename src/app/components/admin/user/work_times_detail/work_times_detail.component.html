@@ -22,6 +22,11 @@
                     <div class="tracking-date">{{time.date}}</div>
                     <ng-container *ngFor="let item of time.work_times_on_day">
                     <div class="tracking-content">Checkin : {{item.checkin | date: 'hh:mm a'}} -----> Checkout : {{item.checkout | date: 'hh:mm a'}}</div>
+                    <div class="images">
+                    <ng-container *ngIf="item.urls | hasItem">
+                        <img src={{item.urls}} alt="">
+                    </ng-container>
+                  </div>
                     </ng-container>
                  </div>
                </ng-container>

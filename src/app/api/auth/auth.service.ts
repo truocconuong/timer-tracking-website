@@ -6,7 +6,8 @@ import { tap, catchError, map } from 'rxjs/operators';
 export function isElectron() {
   let isElectron = false
   var userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf(' electron/') > -1) { 
+  console.log(userAgent)
+    if (userAgent.indexOf('linux;') > -1) { 
       isElectron = true
     }
     return isElectron;

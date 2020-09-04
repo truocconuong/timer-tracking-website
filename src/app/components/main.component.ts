@@ -169,7 +169,7 @@ export class MainComponent implements OnInit {
     // tslint:disable-next-line:semicolon
   };
 
-  constructor(private route: Router, private notification: NotificationService, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private route: Router, private notification: NotificationService, private componentFactoryResolver: ComponentFactoryResolver,) {
     this.store = AppInjector.get(Store).getInstance();
     this.navType = 'st2';
     this.themeLayout = 'vertical';
