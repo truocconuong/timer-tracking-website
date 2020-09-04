@@ -10,13 +10,16 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s12"><search-form></search-form></div>
-  </div>
-
+   <!-- <div class="form-search">
+     <div class="search-date">
+       <input type="datetime-local" [(ngModel)]="start" class="start">
+       <input type="datetime-local" class="end" [(ngModel)]="end">
+     </div>
+     <button class="btn export btn-custom" (click)="searchByDate()">Search by date</button>
+   </div> -->
   <div class="row mgb-20">
-    <div class="col s12 text-right">
-      <a class="btn btn-primary btn-md" routerLink="create"> <i class="fa fa-plus" aria-hidden="true"></i> Create </a>
+    <div class="col s12 mgt-20 text-right">
+      <button class="btn export" (click)="exportExceldata(payload.users)">Thống kê ngày hôm nay</button>
     </div>
   </div>
 
@@ -39,25 +42,25 @@
                 First checkin
                 <sort-by-field field="email"></sort-by-field>
               </th>
-             <th>Last checkout</th>
-             <th>Date</th>
+              <th>Last checkout</th>
+              <th>Date</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody *ngIf="(payload.users | hasItem)">
-              <tr *ngFor="let item of payload.users; let i = index">
-                <ng-container *ngIf="item.work_times | hasItem">
+          <tbody *ngIf="payload.users | hasItem">
+            <tr *ngFor="let item of payload.users; let i = index">
+              <ng-container *ngIf="item.work_times | hasItem">
                 <td>{{ item.id }}</td>
                 <td>{{ item.email }}</td>
-                <td>{{ geneareteFirstCheckin(item.work_times)  | date: 'longTime'}}</td>
+                <td>{{ geneareteFirstCheckin(item.work_times) | date: 'longTime' }}</td>
                 <td>{{ geneareteLastCheckout(item.work_times) | date: 'longTime' }}</td>
-                <td>{{geneareteFirstCheckin(item.work_times) | date:  "dd/MM/yyyy"}}</td>
+                <td>{{ geneareteFirstCheckin(item.work_times) | date: 'dd/MM/yyyy' }}</td>
                 <td>
                   <a routerLink="/admin/users/work-times/{{ item.id }}" class="btn btn-dark btn-sm icon-only"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>
                   <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>
                 </td>
               </ng-container>
-              </tr>
+            </tr>
           </tbody>
         </table>
       </div>
