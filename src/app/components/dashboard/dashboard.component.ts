@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from './../../store/store.module';
 import _ from 'lodash';
 import * as moment from 'moment';
-import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED, SCREEN_DESKTOP } from './../../store/action';
+import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED, SCREEN_DESKTOP, SAVE_DOCUMENT } from './../../store/action';
 import { ElectronService } from 'ngx-electron';
 import { AppInjector } from '../../../app/app-injector';
 import { isElectron } from '../../api/auth/auth.service';
@@ -27,6 +27,9 @@ export class DashboardComponent implements OnInit {
   public store;
   public source = null;
   public interval_screen;
+  public form_upload = false;
+  public title_text = 'Gửi báo cáo';
+  fileToUpload: File = null;
   constructor(store: Store, _electronService: ElectronService) {
     this.store = store.getInstance();
 
@@ -160,4 +163,23 @@ export class DashboardComponent implements OnInit {
     formDataToUpload.append('files', blob, `${new Date().getTime()}.jpg`);
     this.store.dispatch({ type: SCREEN_DESKTOP, data: formDataToUpload });
   };
+  toggleFormUpload() {
+    this.form_upload = !this.form_upload;
+    if (this.form_upload) {
+      this.title_text = 'Lưu';
+    } else {
+      this.title_text = 'Gửi báo cáo';
+    }
+    if (!this.form_upload) {
+      this.handlerSaveDocument();
+    }
+  }
+  handlerSaveDocument = () => {
+    const formData = new FormData();
+    this.store.dispatch({type : SAVE_DOCUMENT , data : formData })
+  };
+
+  fileProgress(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
 }

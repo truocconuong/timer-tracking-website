@@ -19,7 +19,8 @@
    </div> -->
   <div class="row mgb-20">
     <div class="col s12 mgt-20 text-right">
-      <button class="btn export" (click)="exportExceldata(payload.users)">Thống kê ngày hôm nay</button>
+      <input class="custom-input" type="date" [(ngModel)]="date_statistical">
+      <button class="btn export" (click)="exportExceldata(payload.users)">Thống kê</button>
     </div>
   </div>
 

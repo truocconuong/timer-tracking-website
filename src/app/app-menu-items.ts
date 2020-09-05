@@ -40,15 +40,22 @@ export const AppMenunItems = [
         icon: 'fa fa-users'
       },
       {
-        states: ['/', 'admin', 'users','work-times'],
+        states: ['/', 'admin', 'users', 'work-times'],
         short_label: 'U',
         name: 'Work times',
         type: 'link',
         icon: 'fa fa-calendar'
+      },
+      {
+        states: ['/', 'admin', 'users', 'documents'],
+        short_label: 'U',
+        name: 'Document',
+        type: 'link',
+        icon: 'fa fa-file-text'
       }
     ]
-  },
-  
+  }
+
   // {
   //   label: 'ACL',
   //   main: [

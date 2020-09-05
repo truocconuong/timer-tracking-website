@@ -11,6 +11,9 @@ import { Response } from '@angular/http';
 import axios from 'axios';
 import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
+import * as Cookies from 'js-cookie';
+import { isElectron } from '../auth/auth.service';
+import * as moment from 'moment';
 
 @Injectable()
 export class WorkTimeService {
@@ -40,7 +43,7 @@ export class WorkTimeService {
   }
 
   upload(params?: {}) {
-    const urlUpload = 'https://api-dev.vitable.com.au';
+    const urlUpload = environment.urlCallback;
     // login
     let resultData;
     const data = {
@@ -50,22 +53,63 @@ export class WorkTimeService {
     const login = axios.post(`${urlUpload}/api/v1/auth/login`, data).then((result: any) => {
       // upload
       const access_token = `Bearer ${result.data.access_token}`;
-      resultData = axios.post(`${urlUpload}/api/v1/upload`, params, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: access_token
-        }
-      }).then((dulieu)=>{
-        const url = dulieu.data.data[0].full_path;
-        let urls: any = window.localStorage.getItem('urls');
-        if (_.isNil(urls)) {
-          urls = [];
-        } else {
-          urls = JSON.parse(urls);
-        }
-        urls.push(url);
-        window.localStorage.setItem('urls', JSON.stringify(urls));
-      });
+      resultData = axios
+        .post(`${urlUpload}/api/v1/upload`, params, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: access_token
+          }
+        })
+        .then((dulieu) => {
+          const url = dulieu.data.data[0].full_path;
+          let urls: any = window.localStorage.getItem('urls');
+          if (_.isNil(urls)) {
+            urls = [];
+          } else {
+            urls = JSON.parse(urls);
+          }
+          urls.push(url);
+          window.localStorage.setItem('urls', JSON.stringify(urls));
+        });
+    });
+    return resultData;
+  }
+
+  fakeUploadDocument(params?: {}) {
+    const urlUpload = environment.urlCallback;
+    // login
+    let resultData;
+    const data = {
+      email: environment.email,
+      password: environment.password
+    };
+    const login = axios.post(`${urlUpload}/api/v1/auth/login`, data).then((result: any) => {
+      // upload
+      const access_token = `Bearer ${result.data.access_token}`;
+      resultData = axios
+        .post(`${urlUpload}/api/v1/upload`, params, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: access_token
+          }
+        })
+        .then((dulieu) => {
+          const url = dulieu.data.data[0].full_path;
+          let token = Cookies.get(environment.jwtTokenKey);
+          if (isElectron()) {
+            token = window.localStorage.getItem(environment.jwtTokenKey);
+          }
+          const calldata = axios.post(
+            `${environment.apiUrl}/api/v1/documents`,
+            { url: url, checkin: moment() },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+              }
+            }
+          );
+        });
     });
     return resultData;
   }

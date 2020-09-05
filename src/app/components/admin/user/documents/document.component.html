@@ -1,0 +1,56 @@
+<div class="user-component">
+  <div class="row mgb-20">
+    <div class="col s12">
+      <ul class="breadcrumb-title">
+        <li class="breadcrumb-item">
+          <a routerLink="/"> <i class="fa fa-home"></i> </a>
+        </li>
+        <li class="breadcrumb-item"><a href="javascript:">User</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12"><search-form></search-form></div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <loader *ngIf="!payload.fetched"></loader>
+      <div class="card">
+        <table *ngIf="payload.fetched" class="table table-no-border-top">
+          <thead>
+            <tr>
+              <th>
+                ID
+                <sort-by-field field="id"></sort-by-field>
+              </th>
+              <th>
+                Email
+                <sort-by-field field="name"></sort-by-field>
+              </th>
+              <th>
+                Link
+                <sort-by-field field="email"></sort-by-field>
+              </th>
+             <th>Date</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="(payload.documents | hasItem)">
+            <tr *ngFor="let item of payload.documents; let i = index">
+              <td>{{ item.id }}</td>
+              <td>{{ item.user.email }}</td>
+              <td class="checker"><a (click)="showLink(item.url)">Xem</a></td>
+              <td>{{ item.checkin | date: 'dd/MM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col s12 m6"><per-page></per-page></div>
+    <div class="col s12"><length-aware-paginator *ngIf="payload.fetched" [(paginator)]="payload.pagination"></length-aware-paginator></div>
+  </div> -->
+</div>

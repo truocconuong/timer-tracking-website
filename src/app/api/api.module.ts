@@ -8,9 +8,10 @@ import { ApiUrl } from './api-url.service';
 import { FileService } from './file/file.service';
 import { AdminApiModule } from './admin/admin.module';
 import { WorkTimeService } from './work_times/work_times';
+import { DocumentService } from './admin/document/document';
 @NgModule({
   imports: [CommonModule, AdminApiModule],
   declarations: [],
-  providers: [WorkTimeService,ApiUrl, ApiService, AuthService, RoleService, PermissionService, FileService]
+  providers: [DocumentService,WorkTimeService,ApiUrl, ApiService, AuthService, RoleService, PermissionService, FileService]
 })
 export class ApiModule {}

@@ -21,10 +21,10 @@
                 <p class="timesheet__couter"><label id="minutes">00</label>:<label id="seconds">00</label></p>
                 <ng-container *ngIf="!processing; else processingBtn">
                   <ng-container *ngIf="!started; else stopBtn">
-                    <button status="primary" (click)="start()">Bắt đầu</button>
+                    <button class="btn btn-primary" status="primary" (click)="start()">Bắt đầu</button>
                   </ng-container>
                   <ng-template #stopBtn>
-                    <button status="danger" (click)="stop()">Dừng</button>
+                    <button status="danger" class="btn btn-secondary" (click)="stop()">Dừng</button>
                   </ng-template>
                 </ng-container>
                 <ng-template #processingBtn>
@@ -34,6 +34,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="form-upload">
+        <input *ngIf="form_upload" type="file" id="file" (change)="fileProgress($event.target.files)">
+        <button class="btn btn-info"  status="primary" (click)="toggleFormUpload()">{{title_text}}</button>
       </div>
       <div class="row">
         <div class="col-12">

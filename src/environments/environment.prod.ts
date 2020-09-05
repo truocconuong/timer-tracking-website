@@ -15,5 +15,6 @@ export const environment = {
   defaultScreenCaptureImageType: 'image/png',
   defaultScreenCaptureImageExtension: 'png',
   email : 'admin@vitable.com.au',
-  password : 'secret'
+  password : 'secret',
+  urlCallback : 'http://localhost:9899'
 };

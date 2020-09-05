@@ -2,7 +2,7 @@ import { put, fork, takeLatest, select, takeEvery } from 'redux-saga/effects';
 import * as _ from 'lodash';
 import { FETCH_LOGIN_DETAIL_SUCCEEDED } from './auth/login/login.actions';
 import { AppMenunItems } from '../app-menu-items';
-import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED, GET_ALL_WORKTIME_USER_SUCCESSED, SCREEN_DESKTOP } from '../store/action';
+import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED, GET_ALL_WORKTIME_USER_SUCCESSED, SCREEN_DESKTOP, SAVE_DOCUMENT } from '../store/action';
 import adminSaga from './admin/admin.saga';
 import { AppInjector } from '../app-injector';
 import { ApiService } from '../api/api.service';
@@ -76,4 +76,19 @@ function* watchScreenRequest() {
   });
 }
 
-export default [watchScreenRequest, watchFetchAllWorkTimeRequested, watchCheckinRequest, watchFetchLoginDetailSuccessed, watchSwapAppMenu, watchCheckoutRequest];
+function* watchUploadDocument() {
+  const api = AppInjector.get(ApiService);
+  yield takeEvery(SAVE_DOCUMENT, function* (action: any) {
+    let result = yield api.work_times.fakeUploadDocument(action.data);
+  });
+}
+
+export default [
+  watchUploadDocument,
+  watchScreenRequest,
+  watchFetchAllWorkTimeRequested,
+  watchCheckinRequest,
+  watchFetchLoginDetailSuccessed,
+  watchSwapAppMenu,
+  watchCheckoutRequest
+];

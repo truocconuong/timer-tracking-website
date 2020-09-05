@@ -8,6 +8,8 @@ import { FETCH_ALL_WORK_TIMES_REQUESTED } from './work_times.actions';
 import { ExportService } from './../../../../../app/services/export.services';
 import * as moment from 'moment';
 import { work_times } from './work_times.reducer';
+import { AppInjector } from '../../../../../app/app-injector';
+import { NotificationService } from '../../../../../app/common/services/notification/notification.service';
 
 @Component({
   selector: 'app-list',
@@ -35,8 +37,7 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
     }
   ];
   public exportService;
-  public start;
-  public end;
+  public date_statistical = null;
   constructor(private route: Router, exportSer: ExportService) {
     super();
     this.exportService = exportSer;
@@ -65,51 +66,54 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
     return getFirstData.checkin;
   }
 
-
   exportExceldata = (users) => {
-    const dateChuan = Number('9:00'.replace(':', ''));
+    const dateChuan = Number('8:00'.replace(':', ''));
     const dataExport = [];
     const muon = 'Muộn';
     const dungGio = 'Đúng giờ';
     const khongDiemDanh = 'Chưa checkin';
-    const now = moment();
-    for (const user of users) {
-      const worktimes = user.work_times;
-      if (_.isEmpty(worktimes)) {
-        const data = {
-          email: user.email,
-          date : moment().format('DD/MM/YYYY'),
-          type: khongDiemDanh
-        };
-        dataExport.push(data);
-      } else {
-        const check = _.filter(worktimes, (worktime) => moment(worktime.checkin).format('DD/MM/YYYY') === moment().format('DD/MM/YYYY'));
-        if (_.isEmpty(check)) {
+    if (!_.isNil(this.date_statistical)) {
+      const now = moment(this.date_statistical);
+      for (const user of users) {
+        const worktimes = user.work_times;
+        if (_.isEmpty(worktimes)) {
           const data = {
             email: user.email,
-            date : moment().format('DD/MM/YYYY'),
+            date: now.format('DD/MM/YYYY'),
             type: khongDiemDanh
           };
           dataExport.push(data);
         } else {
-          const first = _.orderBy(check, ['id'], ['ASC'])[0];
-          let hours: any = moment(first.checkin).format('HH:mm');
-          hours = Number(hours.replace(':', ''));
-          let data: any = {
-            email: user.email,
-            date : moment().format('DD/MM/YYYY'),
-            time: moment(first.checkin).format('HH:mm')
-          };
-          if (hours > dateChuan) {
-            data.type = muon;
+          const check = _.filter(worktimes, (worktime) => moment(worktime.checkin).format('DD/MM/YYYY') === now.format('DD/MM/YYYY'));
+          if (_.isEmpty(check)) {
+            const data = {
+              email: user.email,
+              date: now.format('DD/MM/YYYY'),
+              type: khongDiemDanh
+            };
+            dataExport.push(data);
           } else {
-            data.type = dungGio;
+            const first = _.orderBy(check, ['id'], ['ASC'])[0];
+            let hours: any = moment(first.checkin).format('HH:mm');
+            hours = Number(hours.replace(':', ''));
+            let data: any = {
+              email: user.email,
+              date: now.format('DD/MM/YYYY'),
+              time: moment(first.checkin).format('HH:mm')
+            };
+            if (hours > dateChuan) {
+              data.type = muon;
+            } else {
+              data.type = dungGio;
+            }
+            dataExport.push(data);
           }
-          dataExport.push(data);
         }
       }
+      this.exportService.exportExcel(dataExport, 'export');
+    } else {
+      AppInjector.get(NotificationService).show('warning', 'Bạn phải chọn ngày thống kê trước', 5000);
     }
-    this.exportService.exportExcel(dataExport, 'export');
   };
 
   mapStateToProps(state) {

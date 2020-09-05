@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkTimesComponent } from './work_times/work_times.component';
 import { WorkTimesDetailComponent } from './work_times_detail/work_times_detail.component';
-
+import { DocumentComponent } from './documents/document.component';
 const routes: Routes = [
   {
     path: '',
@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'work-times/:id',
     component: WorkTimesDetailComponent
-  }
+  },
+  {
+  path: 'documents',
+    component: DocumentComponent
+  },
 ];
 
 @NgModule({

@@ -11,9 +11,10 @@ import { AngularReactiveFormModule } from '@vicoders/reactive-form';
 import { FormsModule } from '@angular/forms';
 import { WorkTimesComponent } from './work_times/work_times.component';
 import { WorkTimesDetailComponent } from './work_times_detail/work_times_detail.component';
+import { DocumentComponent } from './documents/document.component';
 
 @NgModule({
   imports: [CommonModule, UserRoutingModule, FormsModule, PipesModule, DirectivesModule, AngularReactiveFormModule],
-  declarations: [UserComponent, ListComponent, EditComponent, CreateComponent,WorkTimesComponent,WorkTimesDetailComponent]
+  declarations: [UserComponent, ListComponent, EditComponent, CreateComponent,WorkTimesComponent,WorkTimesDetailComponent,DocumentComponent]
 })
 export class UserModule {}

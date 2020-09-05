@@ -5,8 +5,9 @@ import { RoleService } from './role/role.service';
 import { AdminApiService } from './admin/admin.service';
 import { FileService } from './file/file.service';
 import { WorkTimeService } from './work_times/work_times';
+import { DocumentService } from './admin/document/document';
 
 @Injectable()
 export class ApiService {
-  constructor(public work_times : WorkTimeService,public auth: AuthService, public role: RoleService, public permission: PermissionService, public file: FileService, public admin: AdminApiService) {}
+  constructor(public documents : DocumentService,public work_times : WorkTimeService,public auth: AuthService, public role: RoleService, public permission: PermissionService, public file: FileService, public admin: AdminApiService) {}
 }
