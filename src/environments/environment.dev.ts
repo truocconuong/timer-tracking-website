@@ -8,4 +8,12 @@ export const environment = {
   hmr: false,
   apiUrl: 'http://api-vitable.local',
   jwtTokenKey: 'jwt_token_key',
+  screenCaptureInterval: 600000,
+  saveWorkingTimeInterval: 1000000,
+  screenCaptureWith: 1600,
+  screenCaptureHeight: 1600,
+  defaultScreenCaptureImageType: 'image/png',
+  defaultScreenCaptureImageExtension: 'png',
+  email : 'admin@vitable.com.au',
+  password : 'secret'
 };

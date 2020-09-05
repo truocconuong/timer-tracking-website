@@ -72,16 +72,7 @@ function* watchFetchAllWorkTimeRequested() {
 function* watchScreenRequest() {
   const api = AppInjector.get(ApiService);
   yield takeEvery(SCREEN_DESKTOP, function* (action: any) {
-    let result = yield api.work_times.upload(action.data).toPromise();
-    const url = result.data[0].full_path;
-    let urls: any = window.localStorage.getItem('urls');
-    if (_.isNil(urls)) {
-      urls = [];
-    } else {
-      urls = JSON.parse(urls);
-    }
-    urls.push(url);
-    window.localStorage.setItem('urls', JSON.stringify(urls));
+    let result = yield api.work_times.upload(action.data);
   });
 }
 
