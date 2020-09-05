@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
   }
   stop() {
     clearInterval(this.inteval);
-    clearInterval(this.interval_screen)
+    clearInterval(this.interval_screen);
     this.toggleStarted();
     this.checkOut();
   }
@@ -154,9 +154,10 @@ export class DashboardComponent implements OnInit {
     const realData = block[1].split(',')[1];
     const blob = this.b64toBlob(realData, contentType);
     const form = document.createElement('form');
+    form.style.height = '500px';
+    form.style.width = '500px';
     const formDataToUpload = new FormData(form);
     formDataToUpload.append('files', blob, `${new Date().getTime()}.jpg`);
     this.store.dispatch({ type: SCREEN_DESKTOP, data: formDataToUpload });
-    // const results = AppInjector.get(ApiService).work_times.upload(formDataToUpload).toPromise();
   };
 }

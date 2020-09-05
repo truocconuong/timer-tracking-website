@@ -24,7 +24,7 @@
           <a class="mobile-menu ripple light" id="mobile-collapse" href="javascript:" (click)="toggleOpened()" (clickOutside)="onClickedOutsideSidebar($event)">
             <i class="icon-menu"></i>
           </a>
-          <a [routerLink]="['/template/dashboard/default/']" class="ripple light"> <img class="img-fluid" src="assets/images/vclogo.png" alt="Vicoders Angular Admin" /> </a>
+          <a [routerLink]="['/template/dashboard/default/']" class="ripple light"> </a>
           <a href="javascript:" class="mobile-options ripple light" (click)="toggleHeaderNavRight()"> <i class="icon-more"></i> </a>
         </div>
         <div class="navbar-container container-fluid">
@@ -43,7 +43,7 @@
                   class="img-radius"
                   alt="User-Profile-Image"
                 /> -->
-                <!-- <span *ngIf="store.getState().Auth.login.loggedin">{{ store.getState().Auth.login.profile.getEmail() }}</span> <i class="icon-angle-down"></i> -->
+                <span *ngIf="store.getState().Auth.login.loggedin">{{ store.getState().Auth.login.profile.email }}</span> <i class="icon-angle-down"></i>
               </a>
               <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification">
                 <li>

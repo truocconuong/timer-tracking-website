@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { ApiUrl } from '../api-url.service';
 import { Observable } from 'rxjs/Observable';
 import { tap, catchError, map } from 'rxjs/operators';
+
 export function isElectron() {
   let isElectron = false
   var userAgent = navigator.userAgent.toLowerCase();
-  console.log(userAgent)
-    if (userAgent.indexOf('linux;') > -1) { 
+    if (userAgent.indexOf(' electron/') > -1) { 
       isElectron = true
     }
     return isElectron;

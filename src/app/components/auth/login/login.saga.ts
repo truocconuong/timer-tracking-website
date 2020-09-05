@@ -28,11 +28,17 @@ function parseQuery(queryString) {
 }
 
 function* watchLoginRequest() {
-  yield takeEvery(LOGIN_REQUESTED, function*(action: any) {
+  yield takeEvery(LOGIN_REQUESTED, function* (action: any) {
     try {
       const api = AppInjector.get(ApiService);
-      let result = yield api.auth.login(action.data).toPromise();
-      yield put({ type: LOGIN_SUCCEEDED, data: result });
+      if (action.data.username !== 'admin' && !isElectron()) {
+        AppInjector.get(NotificationService).show('warning', 'Account is not allowed to access', 5000);
+      } else if (isElectron() && action.data.username === 'admin') {
+        AppInjector.get(NotificationService).show('warning', 'The admin cannot use this feature', 5000);
+      } else {
+        let result = yield api.auth.login(action.data).toPromise();
+        yield put({ type: LOGIN_SUCCEEDED, data: result });
+      }
     } catch (e) {
       yield put({ type: API_CALL_ERROR, error: e });
     }
@@ -40,31 +46,28 @@ function* watchLoginRequest() {
 }
 
 function* watchLoginSuccessed() {
-  yield takeLatest(LOGIN_SUCCEEDED, function*(action: any) {
-    Cookies.set(environment.jwtTokenKey,action.data.accesstoken, { path: '/' });
+  yield takeLatest(LOGIN_SUCCEEDED, function* (action: any) {
+    Cookies.set(environment.jwtTokenKey, action.data.accesstoken, { path: '/' });
     AppInjector.get(NotificationService).show('success', 'Login Success', 5000);
     const router = AppInjector.get(Router);
-    console.log(isElectron())
-    if(isElectron()){
-      console.log('chay zo day')
-      window.localStorage.setItem(environment.jwtTokenKey,action.data.accesstoken)
-      yield put({type : FETCH_LOGIN_DETAIL_REQUESTED})
+    console.log(isElectron());
+    if (isElectron()) {
+      window.localStorage.setItem(environment.jwtTokenKey, action.data.accesstoken);
+      yield put({ type: FETCH_LOGIN_DETAIL_REQUESTED });
       router.navigateByUrl('localhost:4200/dashboard');
-    }else {
+    } else {
       router.navigate(['/admin/users']);
     }
   });
 }
 
-export const fetchLoginDetail = function*() {
+export const fetchLoginDetail = function* () {
   const fetched = yield select((state: any) => state.Auth.login.fetched);
   if (fetched) {
     return yield select((state: any) => state.Auth.login.profile);
   } else {
     try {
-      return yield AppInjector.get(ApiService)
-        .auth.profile()
-        .toPromise();
+      return yield AppInjector.get(ApiService).auth.profile().toPromise();
     } catch (e) {
       yield put({ type: API_CALL_ERROR, error: e });
     }
@@ -72,7 +75,7 @@ export const fetchLoginDetail = function*() {
 };
 
 function* watchFetchProfileRequest() {
-  yield takeLatest(FETCH_LOGIN_DETAIL_REQUESTED, function*(action: any) {
+  yield takeLatest(FETCH_LOGIN_DETAIL_REQUESTED, function* (action: any) {
     const profile = yield call(fetchLoginDetail);
     yield put(fetchLoginDetailSuccessed(profile));
   });

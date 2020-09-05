@@ -59,17 +59,12 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
     this.dispatch(removeUserRequested({ id: item.id }));
   }
 
-  geneareteFirstCheckin(work_times) {
+  geneareteLastCheckin(work_times) {
     const data = _.orderBy(work_times, ['id'], ['ASC']);
-    const getFirstData = _.first(data);
+    const getFirstData = _.last(data);
     return getFirstData.checkin;
   }
 
-  geneareteLastCheckout(work_times) {
-    const data = _.orderBy(work_times, ['id'], ['ASC']);
-    const getLastData = _.last(data);
-    return getLastData.checkout;
-  }
 
   exportExceldata = (users) => {
     const dateChuan = Number('9:00'.replace(':', ''));
