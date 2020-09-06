@@ -176,7 +176,8 @@ export class DashboardComponent implements OnInit {
   }
   handlerSaveDocument = () => {
     const formData = new FormData();
-    this.store.dispatch({type : SAVE_DOCUMENT , data : formData })
+    formData.append('files', this.fileToUpload);
+    this.store.dispatch({ type: SAVE_DOCUMENT, data: formData });
   };
 
   fileProgress(files: FileList) {
