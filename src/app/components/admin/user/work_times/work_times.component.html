@@ -10,18 +10,19 @@
     </div>
   </div>
 
-   <!-- <div class="form-search">
+   <div class="form-search">
      <div class="search-date">
-       <input type="datetime-local" [(ngModel)]="start" class="start">
-       <input type="datetime-local" class="end" [(ngModel)]="end">
+       <input type="date" [(ngModel)]="search.start" class="start">
+       <input type="date" class="end" [(ngModel)]="search.end">
      </div>
-     <button class="btn export btn-custom" (click)="searchByDate()">Search by date</button>
-   </div> -->
+     <button class="btn export btn-custom" (click)="exportExceldata(payload.users)">Export</button>
+     <button class="btn export btn-custom" (click)="searchByDate()">Search</button>
+   </div>
   <div class="row mgb-20">
-    <div class="col s12 mgt-20 text-right">
+    <!-- <div class="col s12 mgt-20 text-right">
       <input class="custom-input" type="date" [(ngModel)]="date_statistical">
       <button class="btn export" (click)="exportExceldata(payload.users)">Thống kê</button>
-    </div>
+    </div> -->
   </div>
 
   <div class="row">
@@ -40,25 +41,35 @@
                 <sort-by-field field="name"></sort-by-field>
               </th>
               <th>
-                Last checkin
+               Checkin
                 <sort-by-field field="email"></sort-by-field>
               </th>
+              <th>
+                Checkout
+                 <sort-by-field field="email"></sort-by-field>
+               </th>
+               <th>
+                Time work to day
+                 <sort-by-field field="email"></sort-by-field>
+               </th>
+               <th>
+                Checkin status
+                 <sort-by-field field="email"></sort-by-field>
+               </th>
               <th>Date</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody *ngIf="payload.users | hasItem">
             <tr *ngFor="let item of payload.users; let i = index">
-              <ng-container *ngIf="item.work_times | hasItem">
                 <td>{{ item.id }}</td>
                 <td>{{ item.email }}</td>
-                <td>{{ geneareteLastCheckin(item.work_times) | date: 'HH:mm' }}</td>
-                <td>{{ geneareteLastCheckin(item.work_times) | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ item.checkin | date: 'HH:mm' }}</td>
+                <td>{{ item.checkout | date: 'HH:mm' }}</td>
+                <td>{{item.real_times}}</td>
+                <td>{{item.status}}</td>
+                <td>{{ item.checkin | date: 'dd/MM/yyyy' }}</td>
                 <td>
-                  <a routerLink="/admin/users/work-times/{{ item.id }}" class="btn btn-dark btn-sm icon-only"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>
-                  <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>
                 </td>
-              </ng-container>
             </tr>
           </tbody>
         </table>

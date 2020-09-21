@@ -178,7 +178,7 @@
           [style.top]="headerFixedTop"
           [style.height]="sidebarFixedNavHeight"
         >
-          <div class="pcoded-inner-navbar main-menu" appAccordion>
+          <div class="pcoded-inner-navbar main-menu" *ngIf="!isElectron()" appAccordion>
             <div class="" *ngIf="store.getState().Auth.login.fetched">
               <div class="main-menu-header ripple light">
                 <!-- <div *ngIf="store.getState().Auth.login.profile.hasProfileImage()">

@@ -50,7 +50,7 @@
               <td>{{ item.lastName }}</td>
               <td>{{ item.name }}</td>
               <td>
-                <button class="btn btn-danger btn-sm icon-only"><i class="fa fa-trash"></i></button>
+                <button routerLink="/admin/users/work-times/{{item.id}}" routerLinkActive="router-link-active"  class="btn btn-primary btn-sm icon-only" aria-placeholder="History worktimes"><i class="fa fa-history"></i></button>
               </td>
             </tr>
           </tbody>

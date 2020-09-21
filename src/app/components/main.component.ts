@@ -149,8 +149,8 @@ export class MainComponent implements OnInit {
   public psDisabled: string;
 
   public config: any;
-  public menuGroupPermissions = function(items) {
-    return _.flatten(_.map(items, item => item.permissions));
+  public menuGroupPermissions = function (items) {
+    return _.flatten(_.map(items, (item) => item.permissions));
   };
 
   scroll = (): void => {
@@ -169,7 +169,7 @@ export class MainComponent implements OnInit {
     // tslint:disable-next-line:semicolon
   };
 
-  constructor(private route: Router, private notification: NotificationService, private componentFactoryResolver: ComponentFactoryResolver,) {
+  constructor(private route: Router, private notification: NotificationService, private componentFactoryResolver: ComponentFactoryResolver) {
     this.store = AppInjector.get(Store).getInstance();
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -445,6 +445,14 @@ export class MainComponent implements OnInit {
     document.querySelector('body').setAttribute('themebg-pattern', pattern);
   }
 
+  isElectron() {
+    let isElectron = false;
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') > -1) {
+      isElectron = true;
+    }
+    return isElectron;
+  }
   setSidebarPosition() {
     this.isSidebarChecked = !this.isSidebarChecked;
     this.pcodedSidebarPosition = this.isSidebarChecked === true ? 'fixed' : 'absolute';
@@ -473,6 +481,7 @@ export class MainComponent implements OnInit {
 
   logout() {
     Cookies.remove(environment.jwtTokenKey);
+    window.localStorage.clear();
     this.notification.show('success', 'You have logged out', 3000);
     this.route.navigate(loginRouter());
   }

@@ -35,6 +35,14 @@ export class UserService extends ServiceProvider {
       })
     );
   }
+  getAllUserFake(): Observable<any> {
+    this.preloader.show();
+    return this.http.get(this.apiUrl.getApiUrl(`/api/v1/work-times`)).pipe(
+      tap((result) => {
+        return result;
+      })
+    );
+  }
 
   changeStatus(id, params): Observable<any> {
     return this.http.put(`${this.apiUrl.getApiUrl(this.url)}/${id}/status`, params).pipe(
