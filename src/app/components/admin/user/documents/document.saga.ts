@@ -12,7 +12,7 @@ function* watchFetchAllUserRequested() {
       AppInjector.get(PreloaderService).show();
       const results = yield AppInjector.get(ApiService).documents.getAllDocument().toPromise();
       AppInjector.get(PreloaderService).hide();
-      yield put({ type: FETCH_ALL_DOCUMENTS_SUCCESSED, documents: results });
+      yield put({ type: FETCH_ALL_DOCUMENTS_SUCCESSED, documents: results, search: action.search });
     } catch (e) {
       AppInjector.get(PreloaderService).hide();
       yield put({ type: API_CALL_ERROR, error: e });

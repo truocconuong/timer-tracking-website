@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { USER_COMP } from '../user.const';
 import * as _ from 'lodash';
 import { BaseComponent } from '../../../base.component';
@@ -31,13 +31,18 @@ export class DocumentComponent extends BaseComponent implements OnInit {
       value: 3
     }
   ];
-  constructor(private route: Router) {
+  constructor(private route: Router, private activatedRoute: ActivatedRoute) {
     super();
     this.navigationSubscription = this.route.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
-        this.dispatch({
+        const search = activatedRoute.snapshot.queryParams.search;
+        const object: any = {
           type: FETCH_ALL_DOCUMENTS_REQUESTED
-        });
+        };
+        if (!_.isNil(search)) {
+          object.search = search;
+        }
+        this.dispatch(object);
       }
     });
   }

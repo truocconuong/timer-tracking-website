@@ -13,6 +13,12 @@ export const documents = (
 ) => {
   switch (action.type) {
     case FETCH_ALL_DOCUMENTS_SUCCESSED:
+      console.log(action.documents)
+      if (!_.isNil(action.search)) {
+        action.documents = _.filter(action.documents, function (o) {
+          return o.user.email.toLowerCase().indexOf(action.search) > -1;
+        });
+      }
       return _.assign({}, state, {
         fetched: true,
         documents: action.documents,

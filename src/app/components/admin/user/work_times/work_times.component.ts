@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { USER_COMP } from '../user.const';
 import * as _ from 'lodash';
 import { BaseComponent } from '../../../base.component';
@@ -42,14 +42,21 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
     start: '',
     end: ''
   };
-  constructor(private route: Router, exportSer: ExportService) {
+  constructor(private route: Router, exportSer: ExportService, private activatedRoute: ActivatedRoute) {
     super();
     this.exportService = exportSer;
     this.navigationSubscription = this.route.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
-        this.dispatch({
+        const object: any = {
           type: FETCH_ALL_WORK_TIMES_REQUESTED
-        });
+        };
+        const searchKey = activatedRoute.snapshot.queryParams.search;
+
+        if (!_.isNil(searchKey)) {
+          object.searchKey = searchKey;
+        }
+
+        this.dispatch(object);
       }
     });
   }
@@ -71,9 +78,14 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
   }
 
   searchByDate() {
-    console.log(this.search);
     if (this.search.start !== '' && this.search.end !== '') {
-      this.dispatch({ type: FETCH_ALL_WORK_TIMES_REQUESTED, search: this.search });
+      const searchKey = this.activatedRoute.snapshot.queryParams.search;
+      const object: any = { type: FETCH_ALL_WORK_TIMES_REQUESTED, search: this.search };
+      if (!_.isNil(searchKey)) {
+        object.searchKey = searchKey;
+      }
+      this.dispatch(object);
+
     } else {
       AppInjector.get(NotificationService).show('warning', 'Bạn phải chọn đầy đủ thông tin');
 

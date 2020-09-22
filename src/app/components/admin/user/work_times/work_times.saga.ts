@@ -13,7 +13,7 @@ function* watchFetchAllUserWorkTimesRequested() {
       AppInjector.get(PreloaderService).show();
       const results = yield AppInjector.get(ApiService).admin.user.getAllUserFake().toPromise();
       AppInjector.get(PreloaderService).hide();
-      yield put({ type: FETCH_ALL_WORK_TIMES_SUCCESSED, users: results, search: action.search });
+      yield put({ type: FETCH_ALL_WORK_TIMES_SUCCESSED, users: results, search: action.search, searchKey: action.searchKey });
     } catch (e) {
       AppInjector.get(PreloaderService).hide();
       yield put({ type: API_CALL_ERROR, error: e });

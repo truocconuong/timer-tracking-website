@@ -39,7 +39,7 @@ export const work_times = (
             checkin: work_first.checkin,
             checkout: _.last(works).checkout,
             real_times: real_time,
-            status : dateChuan>hours ? 'Đúng giờ' :'Muộn'
+            status: dateChuan > hours ? 'Đúng giờ' : 'Muộn'
           };
           work_times.push(data);
         }
@@ -48,6 +48,12 @@ export const work_times = (
         const start = action.search.start;
         const end = action.search.end;
         work_times = _.filter(work_times, (time) => moment(start).format('DD/MM/YYYY') <= time.date_is_format && moment(end).format('DD/MM/YYYY') >= time.date_is_format);
+      }
+
+      if (!_.isNil(action.searchKey)) {
+        work_times = _.filter(work_times, function (o) {
+          return o.email.toLowerCase().indexOf(action.searchKey) > -1;
+        });
       }
       return _.assign({}, state, {
         fetched: true,

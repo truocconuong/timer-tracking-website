@@ -10,13 +10,17 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col s12"><search-form></search-form></div>
+  </div>
+
    <div class="form-search">
      <div class="search-date">
        <input type="date" [(ngModel)]="search.start" class="start">
        <input type="date" class="end" [(ngModel)]="search.end">
      </div>
      <button class="btn export btn-custom" (click)="exportExceldata(payload.users)">Export</button>
-     <button class="btn export btn-custom" (click)="searchByDate()">Search</button>
+     <button class="btn export btn-custom" (click)="searchByDate()">Search by date</button>
    </div>
   <div class="row mgb-20">
     <!-- <div class="col s12 mgt-20 text-right">
