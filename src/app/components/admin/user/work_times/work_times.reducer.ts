@@ -31,8 +31,9 @@ export const work_times = (
             date: daysNow,
             work_times_on_day: works
           };
+          const date_of_date = !_.isNil(localStorage.getItem('timer')) ? localStorage.getItem('timer') : '8:00';
           const work_first = works[0];
-          const dateChuan = Number('8:00'.replace(':', ''));
+          const dateChuan = Number(date_of_date.replace(':', ''));
           let hours: any = moment(work_first.checkin).format('HH:mm');
           hours = Number(hours.replace(':', ''));
           const real_time = total(works);

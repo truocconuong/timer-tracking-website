@@ -13,6 +13,7 @@ import { WorkTimesComponent } from './work_times/work_times.component';
 import { WorkTimesDetailComponent } from './work_times_detail/work_times_detail.component';
 import { DocumentComponent } from './documents/document.component';
 import { WorkTimeIsRealComponent } from './work_time_is_real/work_time_is_real.component';
+import { SettingComponent } from './settings/settings.component';
 
 @NgModule({
   imports: [CommonModule, UserRoutingModule, FormsModule, PipesModule, DirectivesModule, AngularReactiveFormModule],

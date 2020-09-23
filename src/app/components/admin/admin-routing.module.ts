@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SettingComponent } from './user/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,10 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: './user/user.module#UserModule'
+      },
+      {
+        path: 'settings',
+        component: SettingComponent
       }
     ]
   }

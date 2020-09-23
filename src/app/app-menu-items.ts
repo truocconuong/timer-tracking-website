@@ -54,19 +54,19 @@ export const AppMenunItems = [
         icon: 'fa fa-file-text'
       }
     ]
-  }
+  },
 
-  // {
-  //   label: 'ACL',
-  //   main: [
-  //     {
-  //       main_state: 'acl',
-  //       states: ['/', 'acl', 'roles'],
-  //       short_label: 'R',
-  //       name: 'Role',
-  //       type: 'link',
-  //       icon: 'fa fa-book'
-  //     }
-  //   ]
-  // }
+  {
+    label: 'Setting',
+    main: [
+      {
+        main_state: 'setting',
+        states: ['/admin', 'settings'],
+        short_label: 'R',
+        name: 'Setting',
+        type: 'link',
+        icon: 'fa fa-setting'
+      }
+    ]
+  }
 ];

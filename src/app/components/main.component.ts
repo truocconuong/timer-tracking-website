@@ -243,7 +243,10 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('chay zo day')
+    const timer = localStorage.getItem('timer');
+    if (_.isNil(timer)) {
+      localStorage.setItem('timer', '8:00');
+    }
     this.setBackgroundPattern('theme1');
     this.store.dispatch({ type: FETCH_LOGIN_DETAIL_REQUESTED });
   }
