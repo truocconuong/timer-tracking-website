@@ -28,6 +28,7 @@ export const work_times_detail = (
           work_times_convert.push(data);
         }
         const findDateNow = _.find(work_times_convert, (e) => (e.date === checkin ? e.work_times_on_day.push(time) : false));
+        console.log('like this',work_times_convert)
       }
       return _.assign({}, state, {
         fetched: true,

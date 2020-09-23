@@ -61,6 +61,7 @@
                  <sort-by-field field="email"></sort-by-field>
                </th>
               <th>Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody *ngIf="payload.users | hasItem">
@@ -73,6 +74,7 @@
                 <td>{{item.status}}</td>
                 <td>{{ item.checkin | date: 'dd/MM/yyyy' }}</td>
                 <td>
+                  <button (click)="fakeReal(item)" routerLinkActive="router-link-active"  class="btn btn-dark btn-sm icon-only" aria-placeholder="History worktimes"><i class="fa fa-history"></i></button>
                 </td>
             </tr>
           </tbody>

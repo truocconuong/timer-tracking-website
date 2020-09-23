@@ -27,6 +27,10 @@ export const work_times = (
           }
         }
         if (isSave) {
+          const hihi = {
+            date: daysNow,
+            work_times_on_day: works
+          };
           const work_first = works[0];
           const dateChuan = Number('8:00'.replace(':', ''));
           let hours: any = moment(work_first.checkin).format('HH:mm');
@@ -35,6 +39,7 @@ export const work_times = (
           const data = {
             date_is_format: daysNow,
             id: work_first.id,
+            data: hihi,
             email: work_first.user.email,
             checkin: work_first.checkin,
             checkout: _.last(works).checkout,

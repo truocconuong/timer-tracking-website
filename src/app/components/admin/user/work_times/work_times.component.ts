@@ -85,7 +85,6 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
         object.searchKey = searchKey;
       }
       this.dispatch(object);
-
     } else {
       AppInjector.get(NotificationService).show('warning', 'Bạn phải chọn đầy đủ thông tin');
 
@@ -98,6 +97,11 @@ export class WorkTimesComponent extends BaseComponent implements OnInit {
   exportExceldata = (work_times) => {
     this.exportService.exportExcel(work_times, 'export');
   };
+
+  fakeReal(item) {
+    sessionStorage.setItem('detail', JSON.stringify(item));
+    this.route.navigate([`/admin/users/work-times/detail/${item.id}`]);
+  }
 
   mapStateToProps(state) {
     return {

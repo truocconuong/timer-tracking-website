@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkTimesComponent } from './work_times/work_times.component';
 import { WorkTimesDetailComponent } from './work_times_detail/work_times_detail.component';
 import { DocumentComponent } from './documents/document.component';
+import { WorkTimeIsRealComponent } from './work_time_is_real/work_time_is_real.component';
 const routes: Routes = [
   {
     path: '',
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'work-times/:id',
     component: WorkTimesDetailComponent
+  },
+  {
+    path: 'work-times/detail/:id',
+    component: WorkTimeIsRealComponent
   },
   {
   path: 'documents',
