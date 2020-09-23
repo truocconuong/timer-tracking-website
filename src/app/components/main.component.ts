@@ -243,6 +243,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('chay zo day')
     this.setBackgroundPattern('theme1');
     this.store.dispatch({ type: FETCH_LOGIN_DETAIL_REQUESTED });
   }
