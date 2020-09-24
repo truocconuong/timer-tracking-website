@@ -22,32 +22,42 @@ export const work_times = (
         });
         for (const work of work_times) {
           if (work.date_is_format === daysNow) {
-            console.log('chay zo day');
             isSave = false;
           }
         }
+
         if (isSave) {
-          const hihi = {
-            date: daysNow,
-            work_times_on_day: works
-          };
-          const date_of_date = !_.isNil(localStorage.getItem('timer')) ? localStorage.getItem('timer') : '8:00';
-          const work_first = works[0];
-          const dateChuan = Number(date_of_date.replace(':', ''));
-          let hours: any = moment(work_first.checkin).format('HH:mm');
-          hours = Number(hours.replace(':', ''));
-          const real_time = total(works);
-          const data = {
-            date_is_format: daysNow,
-            id: work_first.id,
-            data: hihi,
-            email: work_first.user.email,
-            checkin: work_first.checkin,
-            checkout: _.last(works).checkout,
-            real_times: real_time,
-            status: dateChuan > hours ? 'Đúng giờ' : 'Muộn'
-          };
-          work_times.push(data);
+          const arrayIsPro = [];
+          let getAllEmail = _.map(works, (e) => e.user.email);
+          getAllEmail = Array.from(new Set(getAllEmail));
+
+          for (const email of getAllEmail) {
+            const filter = _.filter(works, (e) => e.user.email === email);
+            arrayIsPro.push(filter);
+          }
+          for (const works of arrayIsPro) {
+            const hihi = {
+              date: daysNow,
+              work_times_on_day: works
+            };
+            const date_of_date = !_.isNil(localStorage.getItem('timer')) ? localStorage.getItem('timer') : '8:00';
+            const work_first = works[0];
+            const dateChuan = Number(date_of_date.replace(':', ''));
+            let hours: any = moment(work_first.checkin).format('HH:mm');
+            hours = Number(hours.replace(':', ''));
+            const real_time = total(works);
+            const data = {
+              date_is_format: daysNow,
+              id: work_first.id,
+              data: hihi,
+              email: work_first.user.email,
+              checkin: work_first.checkin,
+              checkout: _.last(works).checkout,
+              real_times: real_time,
+              status: dateChuan > hours ? 'Đúng giờ' : 'Muộn'
+            };
+            work_times.push(data);
+          }
         }
       }
       if (!_.isNil(action.search)) {
@@ -61,6 +71,7 @@ export const work_times = (
           return o.email.toLowerCase().indexOf(action.searchKey) > -1;
         });
       }
+      work_times = _.orderBy(work_times,['id'],['desc'])
       return _.assign({}, state, {
         fetched: true,
         users: work_times,
