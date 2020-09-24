@@ -6,6 +6,7 @@ import { CHECK_IN, CHECK_OUT, GET_ALL_WORKTIME_USER_REQUESTED, GET_ALL_WORKTIME_
 import adminSaga from './admin/admin.saga';
 import { AppInjector } from '../app-injector';
 import { ApiService } from '../api/api.service';
+import { NotificationService } from '../common/services/notification/notification.service';
 
 function* initAppMenu(action) {
   const MenuItems = AppMenunItems;
@@ -80,6 +81,8 @@ function* watchUploadDocument() {
   const api = AppInjector.get(ApiService);
   yield takeEvery(SAVE_DOCUMENT, function* (action: any) {
     let result = yield api.work_times.fakeUploadDocument(action.data);
+    const notify = AppInjector.get(NotificationService);
+    notify.show('success', 'Upload successed', 5000);
   });
 }
 
